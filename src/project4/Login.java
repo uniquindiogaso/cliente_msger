@@ -109,8 +109,8 @@ public class Login extends javax.swing.JFrame {
 
         jLabel2.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel2.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel2.setText("You are your own hero");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 90, -1, 20));
+        jLabel2.setText("¡Comunícate con quiénes más te importan!");
+        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 90, -1, 20));
 
         jLabel7.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel7.setForeground(new java.awt.Color(204, 204, 204));
@@ -124,7 +124,7 @@ public class Login extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel8.setText("Plan yourself");
+        jLabel8.setText("Msger UQ");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 110, -1, 30));
 
         jLabel13.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
@@ -133,8 +133,8 @@ public class Login extends javax.swing.JFrame {
 
         jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("FULL NAME");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 240, -1, -1));
+        jLabel14.setText("NOMBRE COMPLETO");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, -1, 30));
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 550));
 
@@ -142,15 +142,15 @@ public class Login extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel3.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel3.setText("Sign in or Sign Up");
+        jLabel3.setText("Ingreso or Registro");
 
         jLabel4.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel4.setText("FULL NAME");
+        jLabel4.setText("Nombre Completo");
 
         jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("PASSWORD");
+        jLabel5.setText("Contraseña");
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -171,7 +171,7 @@ public class Login extends javax.swing.JFrame {
         jTextField1.setBackground(new java.awt.Color(36, 47, 65));
         jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Enter you fullname");
+        jTextField1.setText("Ingresa tu nombre completo");
         jTextField1.setBorder(null);
         jTextField1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -179,11 +179,16 @@ public class Login extends javax.swing.JFrame {
                 jTextField1MouseClicked(evt);
             }
         });
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField1ActionPerformed(evt);
+            }
+        });
 
         jTextField2.setBackground(new java.awt.Color(36, 47, 65));
         jTextField2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setText("Your email here");
+        jTextField2.setText("Tu mejor email aquí");
         jTextField2.setBorder(null);
         jTextField2.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
@@ -200,7 +205,7 @@ public class Login extends javax.swing.JFrame {
         jCheckBox1.setBackground(new java.awt.Color(36, 47, 65));
         jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
         jCheckBox1.setSelected(true);
-        jCheckBox1.setText("I agree all terms of service");
+        jCheckBox1.setText("Estoy de acuerdo con los términos y condiciones");
         jCheckBox1.setBorder(null);
         jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -222,22 +227,22 @@ public class Login extends javax.swing.JFrame {
         jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, -1));
 
         jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel12.setText("SignUp");
+        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
+        jLabel12.setText("Registrarme");
         jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel12MouseClicked(evt);
             }
         });
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
         jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel11.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel11.setText("EMAIL");
+        jLabel11.setText("Correo Electrónico");
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel10.setText("Already a member");
+        jLabel10.setText("Tengo una cuenta");
 
         jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -352,6 +357,10 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
       
     }//GEN-LAST:event_jPanel2MouseDragged
+
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
     /**
      * @param args the command line arguments
