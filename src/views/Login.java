@@ -3,8 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project4;
-
+package views;
 
 import java.awt.MouseInfo;
 import java.awt.event.ActionEvent;
@@ -12,6 +11,7 @@ import java.awt.event.ActionListener;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.time.LocalDateTime;
+import java.util.Arrays;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
@@ -25,15 +25,19 @@ import javax.swing.Timer;
  */
 public class Login extends javax.swing.JFrame {
 
+    int registrarseOentrar; // registrarse 0 - entrar 1
+
     /**
      * Creates new form Home41
      */
     public Login() {
         initComponents();
         setLocationRelativeTo(null);
-    
-    }
+        registrarseOentrar = 0;
+        Connection.getSingletonInstance("localhost:8000");
+      
 
+    }
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -52,7 +56,6 @@ public class Login extends javax.swing.JFrame {
         jSeparator3 = new javax.swing.JSeparator();
         jLabel8 = new javax.swing.JLabel();
         jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -60,16 +63,15 @@ public class Login extends javax.swing.JFrame {
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
-        jPasswordField1 = new javax.swing.JPasswordField();
-        jTextField1 = new javax.swing.JTextField();
-        jTextField2 = new javax.swing.JTextField();
-        jCheckBox1 = new javax.swing.JCheckBox();
-        jPanel3 = new javax.swing.JPanel();
+        contrasena = new javax.swing.JPasswordField();
+        nombreCompleto = new javax.swing.JTextField();
+        email = new javax.swing.JTextField();
+        btnRegistro = new javax.swing.JPanel();
         jLabel9 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        textoBoton = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
-        jSeparator6 = new javax.swing.JSeparator();
+        separadorCorreo = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -105,10 +107,10 @@ public class Login extends javax.swing.JFrame {
         jPanel2.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 190, -1, -1));
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 450, 220, 10));
+        jPanel2.add(jSeparator1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 390, 220, 10));
 
         jSeparator3.setForeground(new java.awt.Color(255, 255, 255));
-        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 270, 10));
+        jPanel2.add(jSeparator3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 360, 270, 10));
 
         jLabel8.setFont(new java.awt.Font("Century Gothic", 0, 14)); // NOI18N
         jLabel8.setForeground(new java.awt.Color(255, 255, 255));
@@ -119,12 +121,7 @@ public class Login extends javax.swing.JFrame {
         jLabel13.setForeground(new java.awt.Color(255, 255, 255));
         jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 30));
 
-        jLabel14.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel14.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel14.setText("NOMBRE COMPLETO");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 210, -1, 30));
-
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 550));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 420, 460));
 
         jPanel5.setBackground(new java.awt.Color(36, 47, 65));
 
@@ -146,93 +143,87 @@ public class Login extends javax.swing.JFrame {
 
         jSeparator5.setForeground(new java.awt.Color(255, 255, 255));
 
-        jPasswordField1.setBackground(new java.awt.Color(36, 47, 65));
-        jPasswordField1.setForeground(new java.awt.Color(255, 255, 255));
-        jPasswordField1.setText("jPasswordField1");
-        jPasswordField1.setBorder(null);
-        jPasswordField1.addFocusListener(new java.awt.event.FocusAdapter() {
+        contrasena.setBackground(new java.awt.Color(36, 47, 65));
+        contrasena.setForeground(new java.awt.Color(255, 255, 255));
+        contrasena.setText("jPasswordField1");
+        contrasena.setBorder(null);
+        contrasena.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jPasswordField1FocusGained(evt);
+                contrasenaFocusGained(evt);
             }
         });
 
-        jTextField1.setBackground(new java.awt.Color(36, 47, 65));
-        jTextField1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jTextField1.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField1.setText("Ingresa tu nombre completo");
-        jTextField1.setBorder(null);
-        jTextField1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
-        jTextField1.addMouseListener(new java.awt.event.MouseAdapter() {
+        nombreCompleto.setBackground(new java.awt.Color(36, 47, 65));
+        nombreCompleto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        nombreCompleto.setForeground(new java.awt.Color(255, 255, 255));
+        nombreCompleto.setText("Ingresa tu nombre completo");
+        nombreCompleto.setBorder(null);
+        nombreCompleto.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        nombreCompleto.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jTextField1MouseClicked(evt);
+                nombreCompletoMouseClicked(evt);
             }
         });
-        jTextField1.addActionListener(new java.awt.event.ActionListener() {
+        nombreCompleto.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField1ActionPerformed(evt);
+                nombreCompletoActionPerformed(evt);
             }
         });
 
-        jTextField2.setBackground(new java.awt.Color(36, 47, 65));
-        jTextField2.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        jTextField2.setForeground(new java.awt.Color(255, 255, 255));
-        jTextField2.setText("Tu mejor email aquí");
-        jTextField2.setBorder(null);
-        jTextField2.setDisabledTextColor(new java.awt.Color(204, 204, 204));
-        jTextField2.addFocusListener(new java.awt.event.FocusAdapter() {
+        email.setBackground(new java.awt.Color(36, 47, 65));
+        email.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        email.setForeground(new java.awt.Color(255, 255, 255));
+        email.setText("Tu mejor email aquí");
+        email.setBorder(null);
+        email.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        email.addFocusListener(new java.awt.event.FocusAdapter() {
             public void focusGained(java.awt.event.FocusEvent evt) {
-                jTextField2FocusGained(evt);
+                emailFocusGained(evt);
             }
         });
-        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+        email.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jTextField2ActionPerformed(evt);
+                emailActionPerformed(evt);
             }
         });
 
-        jCheckBox1.setBackground(new java.awt.Color(36, 47, 65));
-        jCheckBox1.setForeground(new java.awt.Color(255, 255, 255));
-        jCheckBox1.setSelected(true);
-        jCheckBox1.setText("Estoy de acuerdo con los términos y condiciones");
-        jCheckBox1.setBorder(null);
-        jCheckBox1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jCheckBox1ActionPerformed(evt);
-            }
-        });
-
-        jPanel3.setBackground(new java.awt.Color(97, 212, 195));
-        jPanel3.addMouseListener(new java.awt.event.MouseAdapter() {
+        btnRegistro.setBackground(new java.awt.Color(97, 212, 195));
+        btnRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jPanel3MouseClicked(evt);
+                btnRegistroMouseClicked(evt);
             }
         });
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btnRegistro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         jLabel9.setForeground(new java.awt.Color(204, 204, 204));
         jLabel9.setText("EMAIL");
-        jPanel3.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, -1));
+        btnRegistro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, -1));
 
-        jLabel12.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel12.setForeground(new java.awt.Color(102, 102, 102));
-        jLabel12.setText("Registrarme");
-        jLabel12.addMouseListener(new java.awt.event.MouseAdapter() {
+        textoBoton.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        textoBoton.setForeground(new java.awt.Color(102, 102, 102));
+        textoBoton.setText("Registrarme");
+        textoBoton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                jLabel12MouseClicked(evt);
+                textoBotonMouseClicked(evt);
             }
         });
-        jPanel3.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        btnRegistro.add(textoBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        jLabel11.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel11.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel11.setText("Correo Electrónico");
+        emailLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        emailLabel.setForeground(new java.awt.Color(204, 204, 204));
+        emailLabel.setText("Correo Electrónico");
 
         jLabel10.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         jLabel10.setForeground(new java.awt.Color(204, 204, 204));
         jLabel10.setText("Tengo una cuenta");
+        jLabel10.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel10MouseClicked(evt);
+            }
+        });
 
-        jSeparator6.setForeground(new java.awt.Color(255, 255, 255));
+        separadorCorreo.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel1.setForeground(new java.awt.Color(255, 255, 255));
         jLabel1.setText("X");
@@ -251,22 +242,21 @@ public class Login extends javax.swing.JFrame {
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel5)
-                    .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel11)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jCheckBox1)
+                    .addComponent(emailLabel)
+                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(separadorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20)
+                        .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(18, 18, 18)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 70, Short.MAX_VALUE))
+                .addGap(0, 72, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -277,79 +267,74 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 55, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(51, 51, 51)
                 .addComponent(jLabel4)
                 .addGap(11, 11, 11)
-                .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jLabel5)
                 .addGap(11, 11, 11)
-                .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
-                .addComponent(jLabel11)
+                .addComponent(emailLabel)
                 .addGap(1, 1, 1)
-                .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jSeparator6, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(30, 30, 30)
-                .addComponent(jCheckBox1)
-                .addGap(25, 25, 25)
+                .addComponent(separadorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jPanel3, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addGap(10, 10, 10)
                         .addComponent(jLabel10)
-                        .addGap(4, 4, 4)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 80, Short.MAX_VALUE))
+                .addGap(0, 87, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 420, 550));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 420, 460));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 842, 551));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 842, 460));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+    private void emailActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_emailActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField2ActionPerformed
+    }//GEN-LAST:event_emailActionPerformed
 
-    private void jCheckBox1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBox1ActionPerformed
+    private void nombreCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreCompletoMouseClicked
         // TODO add your handling code here:
-    }//GEN-LAST:event_jCheckBox1ActionPerformed
+        nombreCompleto.setText("");
+    }//GEN-LAST:event_nombreCompletoMouseClicked
 
-    private void jTextField1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTextField1MouseClicked
+    private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
         // TODO add your handling code here:
-        jTextField1.setText("");
-    }//GEN-LAST:event_jTextField1MouseClicked
+        email.setText("");
+    }//GEN-LAST:event_emailFocusGained
 
-    private void jTextField2FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jTextField2FocusGained
+    private void contrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasenaFocusGained
         // TODO add your handling code here:
-         jTextField2.setText("");
-    }//GEN-LAST:event_jTextField2FocusGained
+        contrasena.setText("");
+    }//GEN-LAST:event_contrasenaFocusGained
 
-    private void jPasswordField1FocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_jPasswordField1FocusGained
+    private void btnRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistroMouseClicked
         // TODO add your handling code here:
-        jPasswordField1.setText("");
-    }//GEN-LAST:event_jPasswordField1FocusGained
 
-    private void jPanel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel3MouseClicked
-        // TODO add your handling code here:
-    
         toFront();
-    }//GEN-LAST:event_jPanel3MouseClicked
+        btnRegistro();
+    }//GEN-LAST:event_btnRegistroMouseClicked
 
-    private void jLabel12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel12MouseClicked
+    private void textoBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBotonMouseClicked
         // TODO add your handling code here:
-        jPanel3.action(null,null);
-    }//GEN-LAST:event_jLabel12MouseClicked
+        btnRegistro.action(null, null);
+        btnRegistro();
+    }//GEN-LAST:event_textoBotonMouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
         // TODO add your handling code here:
@@ -357,16 +342,38 @@ public class Login extends javax.swing.JFrame {
 
     private void jPanel2MouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseDragged
         // TODO add your handling code here:
-      
+
     }//GEN-LAST:event_jPanel2MouseDragged
 
-    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
+    private void nombreCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCompletoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jTextField1ActionPerformed
+    }//GEN-LAST:event_nombreCompletoActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
+        if (registrarseOentrar == 0) {
+            registrarseOentrar = 1;
+            textoBoton.setText("Entrar");
+            jLabel10.setText("Crear una cuenta");
+            emailLabel.setVisible(false);
+            email.setVisible(false);
+            separadorCorreo.setVisible(false);
+           
+
+        } else {
+            registrarseOentrar = 0;
+            textoBoton.setText("Registrarse");
+            jLabel10.setText("Tengo una cuenta");
+            emailLabel.setVisible(true);
+            email.setVisible(true);
+            separadorCorreo.setVisible(true);
+        }
+
+
+    }//GEN-LAST:event_jLabel10MouseClicked
 
     /**
      * @param args the command line arguments
@@ -405,13 +412,13 @@ public class Login extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JCheckBox jCheckBox1;
+    private javax.swing.JPanel btnRegistro;
+    private javax.swing.JPasswordField contrasena;
+    private javax.swing.JTextField email;
+    private javax.swing.JLabel emailLabel;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
@@ -421,16 +428,20 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JPanel jPanel5;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JSeparator jSeparator1;
     private javax.swing.JSeparator jSeparator2;
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JSeparator jSeparator6;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JTextField nombreCompleto;
+    private javax.swing.JSeparator separadorCorreo;
+    private javax.swing.JLabel textoBoton;
     // End of variables declaration//GEN-END:variables
+
+    private void btnRegistro() {
+        //impresion por consola
+        System.out.println("\nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
+
+    }
 }

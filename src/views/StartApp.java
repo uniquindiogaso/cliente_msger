@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package project4;
+package views;
 
 /**
  *
@@ -19,7 +19,7 @@ public class StartApp {
          Runnable runnable = new Runnable() {
             @Override
             public void run() {
-               new project4.Login().setVisible(true);
+               new views.Login().setVisible(true);
                
             }
         };

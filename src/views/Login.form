@@ -42,7 +42,7 @@
       </AuxValues>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="0" width="842" height="551"/>
+          <AbsoluteConstraints x="0" y="0" width="842" height="460"/>
         </Constraint>
       </Constraints>
 
@@ -62,7 +62,7 @@
           </Events>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="0" y="0" width="420" height="550"/>
+              <AbsoluteConstraints x="0" y="0" width="420" height="460"/>
             </Constraint>
           </Constraints>
 
@@ -109,7 +109,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="100" y="450" width="220" height="10"/>
+                  <AbsoluteConstraints x="90" y="390" width="220" height="10"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -121,7 +121,7 @@
               </Properties>
               <Constraints>
                 <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="70" y="420" width="270" height="10"/>
+                  <AbsoluteConstraints x="60" y="360" width="270" height="10"/>
                 </Constraint>
               </Constraints>
             </Component>
@@ -156,22 +156,6 @@
                 </Constraint>
               </Constraints>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel14">
-              <Properties>
-                <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-                  <Font name="Century Gothic" size="14" style="1"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="text" type="java.lang.String" value="NOMBRE COMPLETO"/>
-              </Properties>
-              <Constraints>
-                <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-                  <AbsoluteConstraints x="120" y="210" width="-1" height="30"/>
-                </Constraint>
-              </Constraints>
-            </Component>
           </SubComponents>
         </Container>
         <Container class="javax.swing.JPanel" name="jPanel5">
@@ -182,7 +166,7 @@
           </Properties>
           <Constraints>
             <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-              <AbsoluteConstraints x="420" y="0" width="420" height="550"/>
+              <AbsoluteConstraints x="420" y="0" width="420" height="460"/>
             </Constraint>
           </Constraints>
 
@@ -194,25 +178,24 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField1" min="-2" pref="270" max="-2" attributes="0"/>
+                          <Component id="nombreCompleto" min="-2" pref="270" max="-2" attributes="0"/>
                           <Component id="jSeparator4" min="-2" pref="270" max="-2" attributes="0"/>
                           <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
-                          <Component id="jPasswordField1" min="-2" pref="270" max="-2" attributes="0"/>
+                          <Component id="contrasena" min="-2" pref="270" max="-2" attributes="0"/>
                           <Component id="jSeparator5" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
-                          <Component id="jTextField2" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="jSeparator6" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                          <Group type="102" attributes="0">
-                              <Component id="jPanel3" min="-2" pref="150" max="-2" attributes="0"/>
-                              <EmptySpace min="20" pref="20" max="-2" attributes="0"/>
+                          <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
+                          <Component id="email" min="-2" pref="270" max="-2" attributes="0"/>
+                          <Component id="separadorCorreo" min="-2" pref="270" max="-2" attributes="0"/>
+                          <Group type="102" alignment="0" attributes="0">
+                              <Component id="btnRegistro" min="-2" pref="150" max="-2" attributes="0"/>
+                              <EmptySpace type="separate" max="-2" attributes="0"/>
                               <Group type="103" groupAlignment="0" attributes="0">
                                   <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
                                   <Component id="jSeparator2" min="-2" pref="110" max="-2" attributes="0"/>
                               </Group>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="70" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="72" max="32767" attributes="0"/>
                   </Group>
                   <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="32767" attributes="0"/>
@@ -226,39 +209,36 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="55" max="32767" attributes="0"/>
+                      <EmptySpace pref="10" max="32767" attributes="0"/>
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="51" pref="51" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                      <Component id="jTextField1" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="nombreCompleto" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jSeparator4" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="11" pref="11" max="-2" attributes="0"/>
-                      <Component id="jPasswordField1" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="contrasena" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
                       <Component id="jSeparator5" min="-2" pref="10" max="-2" attributes="0"/>
                       <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
-                      <Component id="jLabel11" min="-2" max="-2" attributes="0"/>
+                      <Component id="emailLabel" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="1" pref="1" max="-2" attributes="0"/>
-                      <Component id="jTextField2" min="-2" pref="30" max="-2" attributes="0"/>
+                      <Component id="email" min="-2" pref="30" max="-2" attributes="0"/>
                       <EmptySpace min="0" pref="0" max="-2" attributes="0"/>
-                      <Component id="jSeparator6" min="-2" pref="10" max="-2" attributes="0"/>
-                      <EmptySpace min="30" pref="30" max="-2" attributes="0"/>
-                      <Component id="jCheckBox1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace min="25" pref="25" max="-2" attributes="0"/>
+                      <Component id="separadorCorreo" min="-2" pref="10" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
-                          <Component id="jPanel3" min="-2" pref="40" max="-2" attributes="0"/>
+                          <Component id="btnRegistro" min="-2" pref="40" max="-2" attributes="0"/>
                           <Group type="102" attributes="0">
-                              <EmptySpace min="10" pref="10" max="-2" attributes="0"/>
                               <Component id="jLabel10" min="-2" max="-2" attributes="0"/>
-                              <EmptySpace min="4" pref="4" max="-2" attributes="0"/>
+                              <EmptySpace max="-2" attributes="0"/>
                               <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-                      <EmptySpace min="0" pref="80" max="32767" attributes="0"/>
+                      <EmptySpace min="0" pref="87" max="32767" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -318,7 +298,7 @@
                 </Property>
               </Properties>
             </Component>
-            <Component class="javax.swing.JPasswordField" name="jPasswordField1">
+            <Component class="javax.swing.JPasswordField" name="contrasena">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="41" green="2f" red="24" type="rgb"/>
@@ -332,10 +312,10 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jPasswordField1FocusGained"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="contrasenaFocusGained"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField1">
+            <Component class="javax.swing.JTextField" name="nombreCompleto">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="41" green="2f" red="24" type="rgb"/>
@@ -355,11 +335,11 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jTextField1MouseClicked"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField1ActionPerformed"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="nombreCompletoMouseClicked"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombreCompletoActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JTextField" name="jTextField2">
+            <Component class="javax.swing.JTextField" name="email">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="41" green="2f" red="24" type="rgb"/>
@@ -379,36 +359,18 @@
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="jTextField2FocusGained"/>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jTextField2ActionPerformed"/>
+                <EventHandler event="focusGained" listener="java.awt.event.FocusListener" parameters="java.awt.event.FocusEvent" handler="emailFocusGained"/>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="emailActionPerformed"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JCheckBox" name="jCheckBox1">
-              <Properties>
-                <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="41" green="2f" red="24" type="rgb"/>
-                </Property>
-                <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-                  <Color blue="ff" green="ff" red="ff" type="rgb"/>
-                </Property>
-                <Property name="selected" type="boolean" value="true"/>
-                <Property name="text" type="java.lang.String" value="Estoy de acuerdo con los t&#xe9;rminos y condiciones"/>
-                <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
-                  <Border info="null"/>
-                </Property>
-              </Properties>
-              <Events>
-                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="jCheckBox1ActionPerformed"/>
-              </Events>
-            </Component>
-            <Container class="javax.swing.JPanel" name="jPanel3">
+            <Container class="javax.swing.JPanel" name="btnRegistro">
               <Properties>
                 <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="c3" green="d4" red="61" type="rgb"/>
                 </Property>
               </Properties>
               <Events>
-                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jPanel3MouseClicked"/>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="btnRegistroMouseClicked"/>
               </Events>
 
               <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -431,7 +393,7 @@
                     </Constraint>
                   </Constraints>
                 </Component>
-                <Component class="javax.swing.JLabel" name="jLabel12">
+                <Component class="javax.swing.JLabel" name="textoBoton">
                   <Properties>
                     <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                       <Font name="Century Gothic" size="14" style="1"/>
@@ -442,7 +404,7 @@
                     <Property name="text" type="java.lang.String" value="Registrarme"/>
                   </Properties>
                   <Events>
-                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel12MouseClicked"/>
+                    <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="textoBotonMouseClicked"/>
                   </Events>
                   <Constraints>
                     <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -452,7 +414,7 @@
                 </Component>
               </SubComponents>
             </Container>
-            <Component class="javax.swing.JLabel" name="jLabel11">
+            <Component class="javax.swing.JLabel" name="emailLabel">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Century Gothic" size="14" style="1"/>
@@ -473,8 +435,11 @@
                 </Property>
                 <Property name="text" type="java.lang.String" value="Tengo una cuenta"/>
               </Properties>
+              <Events>
+                <EventHandler event="mouseClicked" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel10MouseClicked"/>
+              </Events>
             </Component>
-            <Component class="javax.swing.JSeparator" name="jSeparator6">
+            <Component class="javax.swing.JSeparator" name="separadorCorreo">
               <Properties>
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
