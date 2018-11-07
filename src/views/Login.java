@@ -5,19 +5,8 @@
  */
 package views;
 
-import java.awt.MouseInfo;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
-import java.time.LocalDateTime;
-import java.util.Arrays;
-import java.util.concurrent.Executors;
-import java.util.concurrent.ScheduledExecutorService;
-import java.util.concurrent.TimeUnit;
-import javafx.util.converter.LocalDateTimeStringConverter;
-import javax.swing.SwingUtilities;
-import javax.swing.Timer;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,14 +18,14 @@ public class Login extends javax.swing.JFrame {
 
     /**
      * Creates new form Home41
+     *
+     * @throws java.lang.InterruptedException
      */
-    public Login() {
+    public Login() throws InterruptedException {
         initComponents();
         setLocationRelativeTo(null);
         registrarseOentrar = 0;
-        Connection.getSingletonInstance("localhost:8000");
-      
-
+        comprobarConexion();
     }
 
     /**
@@ -361,7 +350,6 @@ public class Login extends javax.swing.JFrame {
             emailLabel.setVisible(false);
             email.setVisible(false);
             separadorCorreo.setVisible(false);
-           
 
         } else {
             registrarseOentrar = 0;
@@ -404,9 +392,11 @@ public class Login extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
+        java.awt.EventQueue.invokeLater(() -> {
+            try {
                 new Login().setVisible(true);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
         });
     }
@@ -443,5 +433,17 @@ public class Login extends javax.swing.JFrame {
         //impresion por consola
         System.out.println("\nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
 
+    }
+
+    private void comprobarConexion() throws InterruptedException {
+        Thread t1 = new Thread(() -> {
+            try {
+                Thread.sleep(1000);
+                Connection.getSingletonInstance("localhost:8000");
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        });
+        t1.start();
     }
 }
