@@ -5,8 +5,10 @@
  */
 package views;
 
+import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JPanel;
 
 /**
  *
@@ -25,7 +27,7 @@ public class Login extends javax.swing.JFrame {
         initComponents();
         setLocationRelativeTo(null);
         registrarseOentrar = 0;
-        comprobarConexion();
+        //comprobarConexion();
     }
 
     /**
@@ -56,7 +58,6 @@ public class Login extends javax.swing.JFrame {
         nombreCompleto = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         btnRegistro = new javax.swing.JPanel();
-        jLabel9 = new javax.swing.JLabel();
         textoBoton = new javax.swing.JLabel();
         emailLabel = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
@@ -177,27 +178,29 @@ public class Login extends javax.swing.JFrame {
         });
 
         btnRegistro.setBackground(new java.awt.Color(97, 212, 195));
+        btnRegistro.setAutoscrolls(true);
+        btnRegistro.setMaximumSize(new java.awt.Dimension(150, 40));
+        btnRegistro.setMinimumSize(new java.awt.Dimension(100, 40));
+        btnRegistro.setPreferredSize(new java.awt.Dimension(100, 40));
         btnRegistro.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 btnRegistroMouseClicked(evt);
             }
         });
-        btnRegistro.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jLabel9.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel9.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel9.setText("EMAIL");
-        btnRegistro.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(500, 330, -1, -1));
+        java.awt.FlowLayout flowLayout1 = new java.awt.FlowLayout();
+        flowLayout1.setAlignOnBaseline(true);
+        btnRegistro.setLayout(flowLayout1);
 
         textoBoton.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         textoBoton.setForeground(new java.awt.Color(102, 102, 102));
-        textoBoton.setText("Registrarme");
+        textoBoton.setText("  Registrarme  ");
+        textoBoton.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         textoBoton.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 textoBotonMouseClicked(evt);
             }
         });
-        btnRegistro.add(textoBoton, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        btnRegistro.add(textoBoton);
 
         emailLabel.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
         emailLabel.setForeground(new java.awt.Color(204, 204, 204));
@@ -227,8 +230,8 @@ public class Login extends javax.swing.JFrame {
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(0, 70, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(0, 74, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3)
                     .addComponent(jLabel4)
                     .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -239,13 +242,13 @@ public class Login extends javax.swing.JFrame {
                     .addComponent(emailLabel)
                     .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(separadorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(18, 18, 18)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(jLabel10)
                             .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 72, Short.MAX_VALUE))
+                .addGap(0, 76, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel1)
@@ -256,7 +259,7 @@ public class Login extends javax.swing.JFrame {
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
                 .addComponent(jLabel3)
                 .addGap(51, 51, 51)
                 .addComponent(jLabel4)
@@ -278,13 +281,15 @@ public class Login extends javax.swing.JFrame {
                 .addComponent(separadorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(btnRegistro, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(jPanel5Layout.createSequentialGroup()
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 87, Short.MAX_VALUE))
+                .addGap(0, 86, Short.MAX_VALUE))
         );
+
+        btnRegistro.getAccessibleContext().setAccessibleDescription("");
 
         jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 0, 420, 460));
 
@@ -344,7 +349,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         if (registrarseOentrar == 0) {
-            registrarseOentrar = 1;
+            registrarseOentrar = 1;            
             textoBoton.setText("Entrar");
             jLabel10.setText("Crear una cuenta");
             emailLabel.setVisible(false);
@@ -415,7 +420,6 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel5;

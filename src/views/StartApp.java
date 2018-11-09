@@ -5,6 +5,9 @@
  */
 package views;
 
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author proxc
@@ -19,7 +22,11 @@ public class StartApp {
          Runnable runnable = new Runnable() {
             @Override
             public void run() {
-               new views.Login().setVisible(true);
+                try {
+                    new views.Login().setVisible(true);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(StartApp.class.getName()).log(Level.SEVERE, null, ex);
+                }
                
             }
         };
