@@ -5,10 +5,8 @@
  */
 package views;
 
-import java.awt.Dimension;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.swing.JPanel;
 
 /**
  *
