@@ -22,17 +22,23 @@ import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 public class Connection {
+
     private static Connection conexion;
 
-    private Connection(String conexion) {
+    public Connection() {
+    }
+
+    public void prueba() {
+        System.out.println("Ejecuntando conexion ....");
         try {
-            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("juanito", "UTF-8");
-            data+= "&"+URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("123456", "UTF-8");
-            Socket socket = new Socket("127.0.0.1", 8000);
+
+            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("gaso", "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("123", "UTF-8");
+            Socket socket = new Socket("206.189.172.62", 8000);
 
             String path = "/status";
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
-            wr.write("POST " + path + " HTTP/1.0\r\n");
+            wr.write("POST " + path + " HTTP/1.1\r\n");
             wr.write("Content-Length: " + data.length() + "\r\n");
             wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
             wr.write("\r\n");
@@ -54,6 +60,10 @@ public class Connection {
             JOptionPane.showMessageDialog(null, "No logramos conectarte con un servidor, inténtalo más tarde.", "Oops! algo va mal", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+    }
+
+    public Connection(String conexion) {
+
     }
 
     public static Connection getSingletonInstance(String nombre) {

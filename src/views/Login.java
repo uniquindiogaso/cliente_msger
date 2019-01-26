@@ -22,10 +22,13 @@ public class Login extends javax.swing.JFrame {
      * @throws java.lang.InterruptedException
      */
     public Login() throws InterruptedException {
+         Connection c = new Connection();
+         c.prueba();
         initComponents();
         setLocationRelativeTo(null);
-        registrarseOentrar = 0;
-        //comprobarConexion();
+//        registrarseOentrar = 0;
+        
+      
     }
 
     /**
@@ -437,15 +440,5 @@ public class Login extends javax.swing.JFrame {
 
     }
 
-    private void comprobarConexion() throws InterruptedException {
-        Thread t1 = new Thread(() -> {
-            try {
-                Thread.sleep(1000);
-                Connection.getSingletonInstance("localhost:8000");
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-        t1.start();
-    }
+    
 }
