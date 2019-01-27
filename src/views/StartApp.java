@@ -20,7 +20,7 @@ public class StartApp {
      */
     public static void main(String[] args) {
         // TODO code application logic here
-        Runnable runnable = new Runnable() {
+         Runnable runnable = new Runnable() {
             @Override
             public void run() {
                 try {
@@ -28,10 +28,11 @@ public class StartApp {
                 } catch (InterruptedException | UnsupportedEncodingException ex) {
                     Logger.getLogger(StartApp.class.getName()).log(Level.SEVERE, null, ex);
                 }
-
+               
             }
         };
         runnable.run();
     }
-
+    
 }
+

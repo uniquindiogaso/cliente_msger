@@ -5,6 +5,7 @@
         <group name="All"/>
         <group>
 <<<<<<< HEAD
+<<<<<<< HEAD
             <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/Login.java</file>
             <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/Chat.java</file>
             <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/Connection.java</file>
@@ -14,6 +15,11 @@
             <file>file:/D:/DesarrolloWeb/cliente_msger/src/views/Login.java</file>
             <file>file:/D:/DesarrolloWeb/cliente_msger/src/views/Chat.java</file>
 >>>>>>> c962b18ea0bd79fd913493dbeee04b4d2cb42b35
+=======
+            <file>file:/D:/DesarrolloWeb/cliente_msger/src/views/Connection.java</file>
+            <file>file:/D:/DesarrolloWeb/cliente_msger/src/views/Login.java</file>
+            <file>file:/D:/DesarrolloWeb/cliente_msger/src/views/Chat.java</file>
+>>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
         </group>
     </open-files>
 </project-private>
