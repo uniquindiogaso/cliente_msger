@@ -56,7 +56,7 @@ public class Login extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
@@ -70,6 +70,8 @@ public class Login extends javax.swing.JFrame {
         separadorCorreo = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
         nombres = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        usr = new javax.swing.JTextField();
 
         nombreCompleto1.setBackground(new java.awt.Color(36, 47, 65));
         nombreCompleto1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
@@ -147,9 +149,9 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Nombre Completo");
 
-        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Contraseña");
+        lblUsuario.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        lblUsuario.setText("Apodo");
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -170,7 +172,7 @@ public class Login extends javax.swing.JFrame {
         apellidos.setBackground(new java.awt.Color(36, 47, 65));
         apellidos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         apellidos.setForeground(new java.awt.Color(255, 255, 255));
-        apellidos.setText("apellidos");
+        apellidos.setText("Apellidos");
         apellidos.setBorder(null);
         apellidos.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         apellidos.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -252,7 +254,7 @@ public class Login extends javax.swing.JFrame {
         nombres.setBackground(new java.awt.Color(36, 47, 65));
         nombres.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
         nombres.setForeground(new java.awt.Color(255, 255, 255));
-        nombres.setText("nombres");
+        nombres.setText("Nombres");
         nombres.setBorder(null);
         nombres.setDisabledTextColor(new java.awt.Color(204, 204, 204));
         nombres.addMouseListener(new java.awt.event.MouseAdapter() {
@@ -266,44 +268,73 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel6.setText("Contraseña");
+
+        usr.setBackground(new java.awt.Color(36, 47, 65));
+        usr.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        usr.setForeground(new java.awt.Color(255, 255, 255));
+        usr.setText("Así te verán tus amigos");
+        usr.setBorder(null);
+        usr.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        usr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usrMouseClicked(evt);
+            }
+        });
+        usr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usrActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(0, 66, Short.MAX_VALUE)
-                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                .addContainerGap(69, Short.MAX_VALUE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(jLabel1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(separadorCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(65, 65, 65))
                     .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(contrasena, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(separadorCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 68, Short.MAX_VALUE))
+                            .addComponent(lblUsuario)
+                            .addComponent(usr, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(nombres)
+                        .addGap(18, 18, 18)
+                        .addComponent(apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 10, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel3)
                 .addGap(51, 51, 51)
                 .addComponent(jLabel4)
@@ -314,9 +345,13 @@ public class Login extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel5)
-                .addGap(11, 11, 11)
-                .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(jLabel6))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -332,7 +367,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 81, Short.MAX_VALUE))
+                .addGap(0, 47, Short.MAX_VALUE))
         );
 
         btnRegistro.getAccessibleContext().setAccessibleDescription("");
@@ -357,11 +392,6 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
         email.setText("");
     }//GEN-LAST:event_emailFocusGained
-
-    private void contrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasenaFocusGained
-        // TODO add your handling code here:
-        contrasena.setText("");
-    }//GEN-LAST:event_contrasenaFocusGained
 
     private void btnRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistroMouseClicked
         try {
@@ -410,25 +440,37 @@ public class Login extends javax.swing.JFrame {
             textoBoton.setText("Entrar");
             jLabel10.setText("Crear una cuenta");
             jLabel4.setText("Usuario");
+            usr.setText("Tu apodo o NickName");
 
             //al cambiar registrarse por entrar se limpian los campos
             apellidos.setText("");
             contrasena.setText("Contrasena");
-            nombres.setText("Usuario");
 
             //ocultamos los campos que ya no vamos a necesitar
+            contrasena.setText("contrasena");
             emailLabel.setVisible(false);
             email.setVisible(false);
             separadorCorreo.setVisible(false);
             apellidos.setVisible(false);
+            jLabel4.setVisible(false);
+            nombres.setVisible(false);
+            jSeparator4.setVisible(false);
 
         } else { // el usuario no tiene una cuenta
             registrarseOentrar = 0;
             textoBoton.setText("Registrarse");
             jLabel10.setText("Tengo una cuenta");
+            nombres.setText("Nombres");
+            apellidos.setText("Apellidos");
+            usr.setText("Así te verán tus amigos");
+            
             emailLabel.setVisible(true);
             email.setVisible(true);
             separadorCorreo.setVisible(true);
+             jLabel4.setVisible(true);
+            nombres.setVisible(true);
+            jSeparator4.setVisible(true);
+            apellidos.setVisible(true);
         }
 
 
@@ -449,6 +491,19 @@ public class Login extends javax.swing.JFrame {
     private void nombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombresActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nombresActionPerformed
+
+    private void contrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasenaFocusGained
+        // TODO add your handling code here:
+        contrasena.setText("");
+    }//GEN-LAST:event_contrasenaFocusGained
+
+    private void usrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usrMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usrMouseClicked
+
+    private void usrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usrActionPerformed
 
     /**
      * @param args the command line arguments
@@ -500,7 +555,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -511,10 +566,12 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
+    private javax.swing.JLabel lblUsuario;
     private javax.swing.JTextField nombreCompleto1;
     private javax.swing.JTextField nombres;
     private javax.swing.JSeparator separadorCorreo;
     private javax.swing.JLabel textoBoton;
+    private javax.swing.JTextField usr;
     // End of variables declaration//GEN-END:variables
 
     private void btnRegistro() throws UnsupportedEncodingException {
@@ -524,7 +581,7 @@ public class Login extends javax.swing.JFrame {
                 //impresion por consola
                 System.out.println("\nNombre: " + nombres.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
 
-                c.peticion("/usuariocrear", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("user", "UTF-8") + "&"
+                c.peticion("/usuariocrear", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&"
                         + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8") + "&"
                         + URLEncoder.encode("nombres", "UTF-8") + "=" + URLEncoder.encode(nombres.getText().trim(), "UTF-8") + "&"
                         + URLEncoder.encode("apellidos", "UTF-8") + "=" + URLEncoder.encode(apellidos.getText().trim(), "UTF-8") + "&"
@@ -537,7 +594,7 @@ public class Login extends javax.swing.JFrame {
             }
 
         }else{// se ejecuta cuando el usuario ya tiene una cuenta
-                c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(nombres.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
+                c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
         }
 
     }
