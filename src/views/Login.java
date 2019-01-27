@@ -5,6 +5,13 @@
  */
 package views;
 
+import java.io.BufferedReader;
+import java.io.BufferedWriter;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.net.Socket;
+import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -435,9 +442,42 @@ public class Login extends javax.swing.JFrame {
     // End of variables declaration//GEN-END:variables
 
     private void btnRegistro() {
-        //impresion por consola
-        System.out.println("\nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
+        try {
+            //impresion por consola
+            System.out.println("\nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
+            
+            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("user", "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(contrasena.getText().trim(), "UTF-8");
+            data += "&" + URLEncoder.encode("nombres", "UTF-8") + "=" + URLEncoder.encode(nombreCompleto.getText().trim(), "UTF-8");
+            data += "&" + URLEncoder.encode("apellidos", "UTF-8") + "=" + URLEncoder.encode("apellidos", "UTF-8");
+            data += "&" + URLEncoder.encode("estado", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8");
+            data += "&" + URLEncoder.encode("bloqueado", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8");
+            if (!email.getText().trim().equals("Tu mejor email aquí")) {
+                data += "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email.getText().trim(), "UTF-8");
+            }
+            
+            Socket socket = new Socket("localhost", 8000);
 
+            String path = "/usuariocrear";
+            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
+            wr.write("POST " + path + " HTTP/1.0\r\n");
+            wr.write("Content-Length: " + data.length() + "\r\n");
+            wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
+            wr.write("\r\n");
+
+            wr.write(data);
+            wr.flush();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                System.out.println(line);
+            }
+            wr.close();
+            rd.close(); 
+        } catch (IOException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     

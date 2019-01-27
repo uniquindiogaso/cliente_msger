@@ -29,16 +29,16 @@ public class Connection {
     }
 
     public void prueba() {
-        System.out.println("Ejecuntando conexion ....");
+        System.out.println("Ejecutando conexion ....");
         try {
 
-            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("gaso", "UTF-8");
-            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("123", "UTF-8");
-            Socket socket = new Socket("206.189.172.62", 8000);
+            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("juan", "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("juan", "UTF-8");
+            Socket socket = new Socket("localhost", 8000);
 
             String path = "/status";
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
-            wr.write("POST " + path + " HTTP/1.1\r\n");
+            wr.write("POST " + path + " HTTP/1.0\r\n");
             wr.write("Content-Length: " + data.length() + "\r\n");
             wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
             wr.write("\r\n");
