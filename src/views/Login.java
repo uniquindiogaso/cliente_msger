@@ -19,6 +19,13 @@ public class Login extends javax.swing.JFrame {
 
     int registrarseOentrar; // registrarse 0 - entrar 1
     Connection c;
+    //Creando ventana chat
+    Chat chat;
+    String usuario,passw,estado,bloqueado;
+
+    public String getUsuario() {
+        return usuario;
+    }
 
     /**
      * Creates new form Home41
@@ -29,7 +36,6 @@ public class Login extends javax.swing.JFrame {
         c = new Connection();
 
         //c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(Connection.USR, "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(Connection.PASS, "UTF-8"));
-        
         initComponents();
         setLocationRelativeTo(null);
 
@@ -396,7 +402,7 @@ public class Login extends javax.swing.JFrame {
     private void btnRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistroMouseClicked
         try {
             // TODO add your handling code here:
-            
+
             toFront();
             btnRegistro();
         } catch (UnsupportedEncodingException ex) {
@@ -412,7 +418,7 @@ public class Login extends javax.swing.JFrame {
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_textoBotonMouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
@@ -463,11 +469,11 @@ public class Login extends javax.swing.JFrame {
             nombres.setText("Nombres");
             apellidos.setText("Apellidos");
             usr.setText("Así te verán tus amigos");
-            
+
             emailLabel.setVisible(true);
             email.setVisible(true);
             separadorCorreo.setVisible(true);
-             jLabel4.setVisible(true);
+            jLabel4.setVisible(true);
             nombres.setVisible(true);
             jSeparator4.setVisible(true);
             apellidos.setVisible(true);
@@ -593,11 +599,17 @@ public class Login extends javax.swing.JFrame {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
 
-        }else{// se ejecuta cuando el usuario ya tiene una cuenta
-                c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
+        } else {// se ejecuta cuando el usuario ya tiene una cuenta
+            c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
+            usuario=usr.getText();
+            passw=contrasena.getText();
+            estado="Conectado";
+            bloqueado="0";
+            chat = new Chat();
+            chat.datosUser(usuario, passw,estado,bloqueado,c);
+            chat.setVisible(true);
         }
 
     }
 
 }
-

@@ -11,6 +11,7 @@ package views;
  */
 public class Chat extends javax.swing.JFrame {
 
+    Login login;
     UserUpdate update = new UserUpdate();
 
     /**
@@ -19,6 +20,7 @@ public class Chat extends javax.swing.JFrame {
     public Chat() {
         initComponents();
         setLocationRelativeTo(null);
+        jLabel2.setText(login.getUsuario());
     }
 
     /**
@@ -300,8 +302,8 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JLabel lbEnviar;
     // End of variables declaration//GEN-END:variables
 
-    void datosUser(String usr, String pass, String email, Connection c) {
-        update.cargarDatos(usr,pass,email,c);        
+    void datosUser(String usr, String pass,String estado, String bloqueado,Connection c) {        
+        update.cargarDatos(usr,pass,estado,bloqueado,c);
     }
 
 }
