@@ -15,20 +15,19 @@ import java.util.logging.Logger;
 public class Login extends javax.swing.JFrame {
 
     int registrarseOentrar; // registrarse 0 - entrar 1
-
+    Connection c = new Connection();
+    Chat chat = new Chat();
     /**
      * Creates new form Home41
      *
      * @throws java.lang.InterruptedException
      */
     public Login() throws InterruptedException {
-         Connection c = new Connection();
-         c.prueba();
+        c.prueba();
         initComponents();
         setLocationRelativeTo(null);
-//        registrarseOentrar = 0;
-        
-      
+        registrarseOentrar = 0;
+
     }
 
     /**
@@ -350,7 +349,7 @@ public class Login extends javax.swing.JFrame {
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
         if (registrarseOentrar == 0) {
-            registrarseOentrar = 1;            
+            registrarseOentrar = 1;
             textoBoton.setText("Entrar");
             jLabel10.setText("Crear una cuenta");
             emailLabel.setVisible(false);
@@ -364,6 +363,7 @@ public class Login extends javax.swing.JFrame {
             emailLabel.setVisible(true);
             email.setVisible(true);
             separadorCorreo.setVisible(true);
+
         }
 
 
@@ -436,9 +436,22 @@ public class Login extends javax.swing.JFrame {
 
     private void btnRegistro() {
         //impresion por consola
-        System.out.println("\nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
-
+        if (textoBoton.getText().equals("Entrar")) {
+            login();
+        } else {
+            Registro();
+        }
     }
 
-    
+    private void login() {
+        chat.setVisible(true);
+        chat.datosUser(nombreCompleto.getText(),email.getText(),contrasena.getText(),c);
+        System.out.println("Ingreso \nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
+       
+    }
+
+    private void Registro() {
+        
+    }
+
 }

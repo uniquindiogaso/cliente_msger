@@ -32,13 +32,13 @@ public class Connection {
         System.out.println("Ejecuntando conexion ....");
         try {
 
-            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("gaso", "UTF-8");
-            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("123", "UTF-8");
+            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("german", "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("german", "UTF-8");
             Socket socket = new Socket("206.189.172.62", 8000);
 
             String path = "/status";
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
-            wr.write("POST " + path + " HTTP/1.1\r\n");
+            wr.write("POST " + path + " HTTP/1.0\r\n");
             wr.write("Content-Length: " + data.length() + "\r\n");
             wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
             wr.write("\r\n");
@@ -60,7 +60,43 @@ public class Connection {
             JOptionPane.showMessageDialog(null, "No logramos conectarte con un servidor, inténtalo más tarde.", "Oops! algo va mal", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
-    }
+    }   
+    
+    
+    public void modificarUser(String usr,String pass,String email) {
+        System.out.println("Ejecuntando conexion para modificacion de usuario ....");
+        try {
+
+            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr, "UTF-8");
+            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(pass, "UTF-8");            
+            data += "&" + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email, "UTF-8");
+            Socket socket = new Socket("206.189.172.62", 8000);
+
+            String path = "/usuariomodificar";
+            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
+            wr.write("POST " + path + " HTTP/1.0\r\n");
+            wr.write("Content-Length: " + data.length() + "\r\n");
+            wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
+            wr.write("\r\n");
+
+            wr.write(data);
+            wr.flush();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String line;
+            while ((line = rd.readLine()) != null) {
+                System.out.println(line);
+            }
+            wr.close();
+            rd.close();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            //Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No logramos conectarte con un servidor, inténtalo más tarde.", "Oops! algo va mal", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+    } 
 
     public Connection(String conexion) {
 
@@ -74,5 +110,5 @@ public class Connection {
         }
         return conexion;
     }
-
+    
 }

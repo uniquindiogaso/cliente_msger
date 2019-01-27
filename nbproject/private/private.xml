@@ -5,6 +5,9 @@
         <group name="All"/>
         <group>
             <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/Login.java</file>
+            <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/Chat.java</file>
+            <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/Connection.java</file>
+            <file>file:/C:/Users/German/Documents/NetBeansProjects/cliente_msger/src/views/StartApp.java</file>
         </group>
     </open-files>
 </project-private>

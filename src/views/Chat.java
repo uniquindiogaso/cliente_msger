@@ -11,6 +11,8 @@ package views;
  */
 public class Chat extends javax.swing.JFrame {
 
+    UserUpdate update = new UserUpdate();
+
     /**
      * Creates new form Chat
      */
@@ -61,6 +63,11 @@ public class Chat extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura2.JPG"))); // NOI18N
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("Hola pepito!");
 
@@ -103,7 +110,7 @@ public class Chat extends javax.swing.JFrame {
             PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMainLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -232,6 +239,10 @@ public class Chat extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_lbCerrarMouseClicked
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+     update.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -288,4 +299,9 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbEnviar;
     // End of variables declaration//GEN-END:variables
+
+    void datosUser(String usr, String pass, String email, Connection c) {
+        update.cargarDatos(usr,pass,email,c);        
+    }
+
 }
