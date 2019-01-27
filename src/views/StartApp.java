@@ -5,6 +5,7 @@
  */
 package views;
 
+import java.io.UnsupportedEncodingException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -24,7 +25,7 @@ public class StartApp {
             public void run() {
                 try {
                     new views.Login().setVisible(true);
-                } catch (InterruptedException ex) {
+                } catch (InterruptedException | UnsupportedEncodingException ex) {
                     Logger.getLogger(StartApp.class.getName()).log(Level.SEVERE, null, ex);
                 }
 

@@ -184,7 +184,7 @@ public class UserUpdate extends javax.swing.JFrame {
         if (jTextField3.getText().equals(jTextField4.getText())) {
             email = jTextField2.getText();
             pass = jTextField4.getText();
-            c.modificarUser(usr, pass, email);
+            //c.modificarUser(usr, pass, email);
             this.dispose();
         }
         else{
