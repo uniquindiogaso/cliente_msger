@@ -16,7 +16,6 @@ import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.Socket;
-import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
@@ -24,19 +23,19 @@ import javax.swing.JOptionPane;
 public class Connection {
 
     private static Connection conexion;
+    static final String HOST = "206.189.172.62";
+    static final String USR = "juan";
+    static final String PASS = "juan";
 
     public Connection() {
     }
 
-    public void prueba() {
+    public void peticion(String path, String data) {
         System.out.println("Ejecutando conexion ....");
         try {
+            
+            Socket socket = new Socket(HOST, 8000);
 
-            String data = URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode("juan", "UTF-8");
-            data += "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode("juan", "UTF-8");
-            Socket socket = new Socket("localhost", 8000);
-
-            String path = "/status";
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
             wr.write("POST " + path + " HTTP/1.0\r\n");
             wr.write("Content-Length: " + data.length() + "\r\n");
