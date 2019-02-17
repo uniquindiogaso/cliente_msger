@@ -258,6 +258,9 @@
                   <Image iconType="3" name="/recursos/Captura.JPG"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="mousePressed" listener="java.awt.event.MouseListener" parameters="java.awt.event.MouseEvent" handler="jLabel5MousePressed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>

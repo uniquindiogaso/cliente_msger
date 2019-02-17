@@ -140,6 +140,11 @@ public class Chat extends javax.swing.JFrame {
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura.JPG"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelNotificacionesLayout = new javax.swing.GroupLayout(PanelNotificaciones);
         PanelNotificaciones.setLayout(PanelNotificacionesLayout);
@@ -243,6 +248,11 @@ public class Chat extends javax.swing.JFrame {
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
      update.setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+     ControlSolicitud control = new ControlSolicitud();
+     control.setVisible(true);     
+    }//GEN-LAST:event_jLabel5MousePressed
 
     /**
      * @param args the command line arguments
