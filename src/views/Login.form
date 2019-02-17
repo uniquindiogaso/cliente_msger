@@ -199,33 +199,9 @@
           <Layout>
             <DimensionLayout dim="0">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="1" attributes="0">
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace max="-2" attributes="0"/>
-                  </Group>
                   <Group type="102" attributes="0">
-<<<<<<< HEAD
-                      <EmptySpace min="0" pref="66" max="32767" attributes="0"/>
-                      <Group type="103" groupAlignment="1" max="-2" attributes="0">
-                          <Group type="102" attributes="0">
-                              <Component id="nombres" min="-2" pref="140" max="-2" attributes="0"/>
-                              <EmptySpace max="32767" attributes="0"/>
-                              <Component id="apellidos" min="-2" pref="140" max="-2" attributes="0"/>
-                          </Group>
-                          <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel4" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="jSeparator4" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="jLabel5" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="contrasena" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="jSeparator5" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="emailLabel" alignment="0" min="-2" max="-2" attributes="0"/>
-                          <Component id="email" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
-                          <Component id="separadorCorreo" alignment="0" min="-2" pref="270" max="-2" attributes="0"/>
-=======
                       <EmptySpace pref="69" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" max="-2" attributes="0">
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
                           <Group type="102" alignment="1" attributes="0">
                               <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
                               <EmptySpace max="-2" attributes="0"/>
@@ -268,10 +244,6 @@
                               <EmptySpace max="-2" attributes="0"/>
                           </Group>
                       </Group>
-<<<<<<< HEAD
-                      <EmptySpace min="0" pref="68" max="32767" attributes="0"/>
-=======
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
                   </Group>
               </Group>
             </DimensionLayout>
@@ -280,11 +252,7 @@
                   <Group type="102" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="jLabel1" min="-2" max="-2" attributes="0"/>
-<<<<<<< HEAD
-                      <EmptySpace pref="10" max="32767" attributes="0"/>
-=======
                       <EmptySpace min="-2" pref="44" max="-2" attributes="0"/>
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
                       <Component id="jLabel3" min="-2" max="-2" attributes="0"/>
                       <EmptySpace min="51" pref="51" max="-2" attributes="0"/>
                       <Component id="jLabel4" min="-2" max="-2" attributes="0"/>
@@ -322,11 +290,7 @@
                               <Component id="jSeparator2" min="-2" pref="10" max="-2" attributes="0"/>
                           </Group>
                       </Group>
-<<<<<<< HEAD
-                      <EmptySpace min="0" pref="81" max="32767" attributes="0"/>
-=======
                       <EmptySpace min="0" pref="47" max="32767" attributes="0"/>
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
                   </Group>
               </Group>
             </DimensionLayout>
@@ -414,11 +378,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-<<<<<<< HEAD
-                <Property name="text" type="java.lang.String" value="apellidos"/>
-=======
                 <Property name="text" type="java.lang.String" value="Apellidos"/>
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -611,11 +571,7 @@
                 <Property name="foreground" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
                   <Color blue="ff" green="ff" red="ff" type="rgb"/>
                 </Property>
-<<<<<<< HEAD
-                <Property name="text" type="java.lang.String" value="nombres"/>
-=======
                 <Property name="text" type="java.lang.String" value="Nombres"/>
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
                 <Property name="border" type="javax.swing.border.Border" editor="org.netbeans.modules.form.editors2.BorderEditor">
                   <Border info="null"/>
                 </Property>
@@ -628,8 +584,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nombresActionPerformed"/>
               </Events>
             </Component>
-<<<<<<< HEAD
-=======
             <Component class="javax.swing.JLabel" name="jLabel6">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -665,7 +619,6 @@
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="usrActionPerformed"/>
               </Events>
             </Component>
->>>>>>> b587f8652626ec13aa771ccc48728a830740cf94
           </SubComponents>
         </Container>
       </SubComponents>

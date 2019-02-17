@@ -209,12 +209,11 @@ public class Chat extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelChatLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addComponent(lbArchivos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbEnviar))
                     .addComponent(jScrollPane3))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jPanel1.add(PanelChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 670, 440));
