@@ -10,6 +10,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -21,7 +22,7 @@ public class Login extends javax.swing.JFrame {
     Connection c;
     //Creando ventana chat
     Chat chat;
-    String usuario,passw,estado,bloqueado;
+    String usuario, passw, estado, bloqueado;
 
     public String getUsuario() {
         return usuario;
@@ -37,6 +38,7 @@ public class Login extends javax.swing.JFrame {
 
         //c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(Connection.USR, "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(Connection.PASS, "UTF-8"));
         initComponents();
+        textoBoton.requestFocusInWindow(); // esto permite que al iniciar la interfaz el foco esté en el botón y no en los campos (si el foco está en el primer campo no se podrá ver el texto placeholder)
         setLocationRelativeTo(null);
 
     }
@@ -181,6 +183,11 @@ public class Login extends javax.swing.JFrame {
         apellidos.setText("Apellidos");
         apellidos.setBorder(null);
         apellidos.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        apellidos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                apellidosFocusGained(evt);
+            }
+        });
         apellidos.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 apellidosMouseClicked(evt);
@@ -263,6 +270,11 @@ public class Login extends javax.swing.JFrame {
         nombres.setText("Nombres");
         nombres.setBorder(null);
         nombres.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        nombres.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nombresFocusGained(evt);
+            }
+        });
         nombres.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 nombresMouseClicked(evt);
@@ -271,6 +283,11 @@ public class Login extends javax.swing.JFrame {
         nombres.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nombresActionPerformed(evt);
+            }
+        });
+        nombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombresKeyTyped(evt);
             }
         });
 
@@ -284,6 +301,11 @@ public class Login extends javax.swing.JFrame {
         usr.setText("Así te verán tus amigos");
         usr.setBorder(null);
         usr.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        usr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usrFocusGained(evt);
+            }
+        });
         usr.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 usrMouseClicked(evt);
@@ -390,8 +412,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_emailActionPerformed
 
     private void apellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apellidosMouseClicked
-        // TODO add your handling code here:
-        apellidos.setText("");
+
     }//GEN-LAST:event_apellidosMouseClicked
 
     private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
@@ -495,7 +516,7 @@ public class Login extends javax.swing.JFrame {
     }//GEN-LAST:event_nombresMouseClicked
 
     private void nombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombresActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_nombresActionPerformed
 
     private void contrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasenaFocusGained
@@ -511,43 +532,59 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_usrActionPerformed
 
+    private void usrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usrFocusGained
+        usr.setText("");
+    }//GEN-LAST:event_usrFocusGained
+
+    private void nombresFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombresFocusGained
+        nombres.setText("");
+    }//GEN-LAST:event_nombresFocusGained
+
+    private void nombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombresKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombresKeyTyped
+
+    private void apellidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_apellidosFocusGained
+        apellidos.setText("");
+    }//GEN-LAST:event_apellidosFocusGained
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new Login().setVisible(true);
-            } catch (InterruptedException | UnsupportedEncodingException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> {
+//            try {
+//                new Login().setVisible(true);
+//            } catch (InterruptedException | UnsupportedEncodingException ex) {
+//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField apellidos;
@@ -600,14 +637,25 @@ public class Login extends javax.swing.JFrame {
             }
 
         } else {// se ejecuta cuando el usuario ya tiene una cuenta
-            c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
-            usuario=usr.getText();
-            passw=contrasena.getText();
-            estado="Conectado";
-            bloqueado="0";
-            chat = new Chat();
-            chat.datosUser(usuario, passw,estado,bloqueado,c);
-            chat.setVisible(true);
+            String respuesta = c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
+            switch (respuesta) {
+                case "101":
+                    usuario = usr.getText();
+                    passw = contrasena.getText();
+                    estado = "Conectado";
+                    bloqueado = "0";
+                    chat = new Chat(this);
+                    chat.datosUser(usuario, passw, estado, bloqueado, c);
+                    this.dispose();
+                    chat.setVisible(true);
+                    break;
+                case "201":
+                    JOptionPane.showMessageDialog(this, "El usuario no está registrado", "Error!", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
         }
 
     }
