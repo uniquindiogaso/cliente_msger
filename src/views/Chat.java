@@ -32,6 +32,9 @@ public class Chat extends javax.swing.JFrame {
         clienteSocket = new Cliente(u, this);
         setLocationRelativeTo(null);
         jLabel2.setText(login.getUsuario());
+        
+        //"#MSJ||FQLSHP||c0||c2||Hola :)"
+        clienteSocket.enviar("#HOLA||||FQLSHP||"+u.getId()+"||s3rv1d0r||"+u.getId() + "\n" );
     }
 
     /**

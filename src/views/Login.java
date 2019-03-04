@@ -639,7 +639,8 @@ public class Login extends javax.swing.JFrame {
 
         } else {// se ejecuta cuando el usuario ya tiene una cuenta
             String respuesta = c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
-            switch (respuesta) {
+            System.out.println("respuesta.substring(0,3 ===== "  + respuesta);
+            switch (respuesta.substring(0,3)) {
                 case "101":
                     //TODO : Encapsular en bean. 
                     usuario = usr.getText();
@@ -651,7 +652,8 @@ public class Login extends javax.swing.JFrame {
                     Usuario u = new Usuario();
                     u.setUsr(usr.getText());
                     u.setPass(contrasena.getText());
-
+                    //u.setId(Integer.valueOf(respuesta.substring(3)));
+                    u.setId(7);
                     chat = new Chat(this,u);
                     chat.datosUser(usuario, passw, estado, bloqueado, c);
 

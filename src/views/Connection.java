@@ -23,7 +23,7 @@ import javax.swing.JOptionPane;
 public class Connection {
 
     private static Connection conexion;
-    static final String HOST = "ceam-csp.me";
+    static final String HOST = "localhost";
     static final String USR = "juan";
     static final String PASS = "juan";
     String respuestaServidor;
@@ -50,23 +50,29 @@ public class Connection {
             wr.flush();
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line="";
-            while ((line = rd.readLine()) != null) {
-                switch (line) {
-                    case "200": //error general
-                        this.respuestaServidor= line;
-                        break;
-                    case "201": // no existe un usuario con esos datos
-                        this.respuestaServidor= line;
-                        break;
-                    case "301": // usuario inhabilitado/bloqueado
-                        this.respuestaServidor= line;
-                        break;
-                    case "101": // Usuario autenticado correctamente
-                        this.respuestaServidor= line;
-                        break;
-                }
+            String lineaActual = "";
+            String respuesta = "";
+            while ((lineaActual = rd.readLine()) != null) {
+                respuesta = lineaActual;
             }
+           
+            String codigo = respuesta.substring(0, 3); // fix ... enviarle en el 101 el ID
+
+            switch (codigo) {
+                case "200": //error general
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "201": // no existe un usuario con esos datos
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "301": // usuario inhabilitado/bloqueado
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "101": // Usuario autenticado correctamente
+                    this.respuestaServidor = respuesta;
+                    break;
+            }
+
             wr.close();
             rd.close();
         } catch (UnsupportedEncodingException ex) {
