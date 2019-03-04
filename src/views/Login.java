@@ -652,8 +652,7 @@ public class Login extends javax.swing.JFrame {
                     Usuario u = new Usuario();
                     u.setUsr(usr.getText());
                     u.setPass(contrasena.getText());
-                    //u.setId(Integer.valueOf(respuesta.substring(3)));
-                    u.setId(7);
+                    u.setId(Integer.valueOf(respuesta.substring(5)));
                     chat = new Chat(this,u);
                     chat.datosUser(usuario, passw, estado, bloqueado, c);
 
