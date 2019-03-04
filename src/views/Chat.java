@@ -5,18 +5,33 @@
  */
 package views;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import logica.Cliente;
+import logica.Usuario;
+
 /**
  *
  * @author German
  */
 public class Chat extends javax.swing.JFrame {
 
+    Login login ;
+    UserUpdate update = new UserUpdate();
+    private Usuario u;
+    Cliente clienteSocket;
     /**
      * Creates new form Chat
+     * @param login
      */
-    public Chat() {
+    public Chat(Login login , Usuario u) {
         initComponents();
+        this.login=login;
+        this.u = u;
+        clienteSocket = new Cliente(u, this);
         setLocationRelativeTo(null);
+        jLabel2.setText(login.getUsuario());
     }
 
     /**
@@ -44,7 +59,7 @@ public class Chat extends javax.swing.JFrame {
         jScrollPane2 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        txtChat = new javax.swing.JTextArea();
         lbEnviar = new javax.swing.JLabel();
         lbArchivos = new javax.swing.JLabel();
 
@@ -61,6 +76,11 @@ public class Chat extends javax.swing.JFrame {
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura2.JPG"))); // NOI18N
         jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
 
         jLabel2.setText("Hola pepito!");
 
@@ -103,7 +123,7 @@ public class Chat extends javax.swing.JFrame {
             PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelMainLayout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
                     .addComponent(jLabel2))
                 .addGap(18, 18, 18)
@@ -119,6 +139,7 @@ public class Chat extends javax.swing.JFrame {
 
         PanelNotificaciones.setBackground(new java.awt.Color(255, 255, 204));
 
+        lbCerrar.setFont(new java.awt.Font("Tahoma", 1, 12)); // NOI18N
         lbCerrar.setText("X");
         lbCerrar.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
@@ -131,6 +152,11 @@ public class Chat extends javax.swing.JFrame {
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 
         jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura.JPG"))); // NOI18N
+        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mousePressed(java.awt.event.MouseEvent evt) {
+                jLabel5MousePressed(evt);
+            }
+        });
 
         javax.swing.GroupLayout PanelNotificacionesLayout = new javax.swing.GroupLayout(PanelNotificaciones);
         PanelNotificaciones.setLayout(PanelNotificacionesLayout);
@@ -138,25 +164,25 @@ public class Chat extends javax.swing.JFrame {
             PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNotificacionesLayout.createSequentialGroup()
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel5)
-                .addGap(7, 7, 7)
-                .addComponent(lbCerrar)
-                .addGap(15, 15, 15))
+                .addGroup(PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNotificacionesLayout.createSequentialGroup()
+                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(jLabel5)
+                        .addGap(46, 46, 46))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNotificacionesLayout.createSequentialGroup()
+                        .addComponent(lbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(26, 26, 26))))
         );
         PanelNotificacionesLayout.setVerticalGroup(
             PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelNotificacionesLayout.createSequentialGroup()
-                .addContainerGap()
-                .addGroup(PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addGroup(PanelNotificacionesLayout.createSequentialGroup()
-                        .addComponent(lbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(94, 94, 94))
-                    .addGroup(PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(36, Short.MAX_VALUE))
+                .addComponent(lbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(3, 3, 3)
+                .addGroup(PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         jPanel1.add(PanelNotificaciones, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 0, 670, 160));
@@ -167,11 +193,16 @@ public class Chat extends javax.swing.JFrame {
         jTextArea1.setRows(5);
         jScrollPane2.setViewportView(jTextArea1);
 
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jScrollPane3.setViewportView(jTextArea2);
+        txtChat.setColumns(20);
+        txtChat.setRows(5);
+        jScrollPane3.setViewportView(txtChat);
 
         lbEnviar.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura4.JPG"))); // NOI18N
+        lbEnviar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                lbEnviarMouseClicked(evt);
+            }
+        });
 
         lbArchivos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura5.JPG"))); // NOI18N
 
@@ -200,12 +231,11 @@ public class Chat extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addGroup(PanelChatLayout.createSequentialGroup()
-                        .addGap(27, 27, 27)
                         .addComponent(lbArchivos)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(lbEnviar))
                     .addComponent(jScrollPane3))
-                .addContainerGap(20, Short.MAX_VALUE))
+                .addContainerGap(47, Short.MAX_VALUE))
         );
 
         jPanel1.add(PanelChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 670, 440));
@@ -232,40 +262,25 @@ public class Chat extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_lbCerrarMouseClicked
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+     update.setVisible(true);
+    }//GEN-LAST:event_jLabel1MouseClicked
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Chat().setVisible(true);
-            }
-        });
-    }
+    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+     ControlSolicitud control = new ControlSolicitud();
+     control.setVisible(true);     
+    }//GEN-LAST:event_jLabel5MousePressed
+
+    private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
+        try {
+            
+            enviarChat();
+        
+        } catch (IOException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_lbEnviarMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelChat;
@@ -281,11 +296,23 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    public javax.swing.JTextArea jTextArea1;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbArchivos;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbEnviar;
+    public javax.swing.JTextArea txtChat;
     // End of variables declaration//GEN-END:variables
+
+    void datosUser(String usr, String pass,String estado, String bloqueado,Connection c) {        
+        update.cargarDatos(usr,pass,estado,bloqueado,c);
+    }
+
+    private void enviarChat() throws IOException {
+         //new logica.Client().emitir(txtChat.getText().trim());
+         clienteSocket.enviar("#MSJ||FQLSHP||c0||c1||Hola :)");
+         clienteSocket.enviar("");
+        
+    }
+
 }

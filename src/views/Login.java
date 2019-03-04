@@ -5,8 +5,13 @@
  */
 package views;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
+import logica.Usuario;
 
 /**
  *
@@ -15,20 +20,28 @@ import java.util.logging.Logger;
 public class Login extends javax.swing.JFrame {
 
     int registrarseOentrar; // registrarse 0 - entrar 1
+    Connection c;
+    //Creando ventana chat
+    Chat chat;
+    String usuario, passw, estado, bloqueado;
+
+    public String getUsuario() {
+        return usuario;
+    }
 
     /**
      * Creates new form Home41
      *
      * @throws java.lang.InterruptedException
      */
-    public Login() throws InterruptedException {
-         Connection c = new Connection();
-         c.prueba();
+    public Login() throws InterruptedException, UnsupportedEncodingException {
+        c = new Connection();
+
+        //c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(Connection.USR, "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(Connection.PASS, "UTF-8"));
         initComponents();
+        textoBoton.requestFocusInWindow(); // esto permite que al iniciar la interfaz el foco esté en el botón y no en los campos (si el foco está en el primer campo no se podrá ver el texto placeholder)
         setLocationRelativeTo(null);
-//        registrarseOentrar = 0;
-        
-      
+
     }
 
     /**
@@ -40,6 +53,7 @@ public class Login extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        nombreCompleto1 = new javax.swing.JTextField();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
@@ -51,12 +65,12 @@ public class Login extends javax.swing.JFrame {
         jPanel5 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        lblUsuario = new javax.swing.JLabel();
         jSeparator2 = new javax.swing.JSeparator();
         jSeparator4 = new javax.swing.JSeparator();
         jSeparator5 = new javax.swing.JSeparator();
         contrasena = new javax.swing.JPasswordField();
-        nombreCompleto = new javax.swing.JTextField();
+        apellidos = new javax.swing.JTextField();
         email = new javax.swing.JTextField();
         btnRegistro = new javax.swing.JPanel();
         textoBoton = new javax.swing.JLabel();
@@ -64,6 +78,26 @@ public class Login extends javax.swing.JFrame {
         jLabel10 = new javax.swing.JLabel();
         separadorCorreo = new javax.swing.JSeparator();
         jLabel1 = new javax.swing.JLabel();
+        nombres = new javax.swing.JTextField();
+        jLabel6 = new javax.swing.JLabel();
+        usr = new javax.swing.JTextField();
+
+        nombreCompleto1.setBackground(new java.awt.Color(36, 47, 65));
+        nombreCompleto1.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        nombreCompleto1.setForeground(new java.awt.Color(255, 255, 255));
+        nombreCompleto1.setText("nombres");
+        nombreCompleto1.setBorder(null);
+        nombreCompleto1.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        nombreCompleto1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nombreCompleto1MouseClicked(evt);
+            }
+        });
+        nombreCompleto1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombreCompleto1ActionPerformed(evt);
+            }
+        });
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -124,9 +158,9 @@ public class Login extends javax.swing.JFrame {
         jLabel4.setForeground(new java.awt.Color(204, 204, 204));
         jLabel4.setText("Nombre Completo");
 
-        jLabel5.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(204, 204, 204));
-        jLabel5.setText("Contraseña");
+        lblUsuario.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        lblUsuario.setForeground(new java.awt.Color(204, 204, 204));
+        lblUsuario.setText("Apodo");
 
         jSeparator2.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -144,20 +178,25 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
-        nombreCompleto.setBackground(new java.awt.Color(36, 47, 65));
-        nombreCompleto.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
-        nombreCompleto.setForeground(new java.awt.Color(255, 255, 255));
-        nombreCompleto.setText("Ingresa tu nombre completo");
-        nombreCompleto.setBorder(null);
-        nombreCompleto.setDisabledTextColor(new java.awt.Color(204, 204, 204));
-        nombreCompleto.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                nombreCompletoMouseClicked(evt);
+        apellidos.setBackground(new java.awt.Color(36, 47, 65));
+        apellidos.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        apellidos.setForeground(new java.awt.Color(255, 255, 255));
+        apellidos.setText("Apellidos");
+        apellidos.setBorder(null);
+        apellidos.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        apellidos.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                apellidosFocusGained(evt);
             }
         });
-        nombreCompleto.addActionListener(new java.awt.event.ActionListener() {
+        apellidos.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                apellidosMouseClicked(evt);
+            }
+        });
+        apellidos.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombreCompletoActionPerformed(evt);
+                apellidosActionPerformed(evt);
             }
         });
 
@@ -226,52 +265,122 @@ public class Login extends javax.swing.JFrame {
             }
         });
 
+        nombres.setBackground(new java.awt.Color(36, 47, 65));
+        nombres.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        nombres.setForeground(new java.awt.Color(255, 255, 255));
+        nombres.setText("Nombres");
+        nombres.setBorder(null);
+        nombres.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        nombres.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                nombresFocusGained(evt);
+            }
+        });
+        nombres.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                nombresMouseClicked(evt);
+            }
+        });
+        nombres.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nombresActionPerformed(evt);
+            }
+        });
+        nombres.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                nombresKeyTyped(evt);
+            }
+        });
+
+        jLabel6.setFont(new java.awt.Font("Century Gothic", 1, 14)); // NOI18N
+        jLabel6.setForeground(new java.awt.Color(204, 204, 204));
+        jLabel6.setText("Contraseña");
+
+        usr.setBackground(new java.awt.Color(36, 47, 65));
+        usr.setFont(new java.awt.Font("Century Gothic", 0, 12)); // NOI18N
+        usr.setForeground(new java.awt.Color(255, 255, 255));
+        usr.setText("Así te verán tus amigos");
+        usr.setBorder(null);
+        usr.setDisabledTextColor(new java.awt.Color(204, 204, 204));
+        usr.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                usrFocusGained(evt);
+            }
+        });
+        usr.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                usrMouseClicked(evt);
+            }
+        });
+        usr.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                usrActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel5Layout = new javax.swing.GroupLayout(jPanel5);
         jPanel5.setLayout(jPanel5Layout);
         jPanel5Layout.setHorizontalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
-                .addGap(0, 74, Short.MAX_VALUE)
+                .addContainerGap(69, Short.MAX_VALUE)
                 .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addComponent(jLabel3)
-                    .addComponent(jLabel4)
-                    .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel5)
-                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(emailLabel)
-                    .addComponent(email, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(separadorCorreo, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                        .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jLabel1)
+                        .addContainerGap())
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jSeparator4, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jSeparator5, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(emailLabel, javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(email, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(separadorCorreo, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel5Layout.createSequentialGroup()
+                                .addComponent(btnRegistro, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(76, 76, 76)
+                                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel10)
+                                    .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(65, 65, 65))
+                    .addGroup(jPanel5Layout.createSequentialGroup()
                         .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel10)
-                            .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addGap(0, 76, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jLabel1)
-                .addContainerGap())
+                            .addComponent(lblUsuario)
+                            .addComponent(usr, javax.swing.GroupLayout.PREFERRED_SIZE, 140, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGap(39, 39, 39)
+                        .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel6)
+                            .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 136, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel5Layout.createSequentialGroup()
+                        .addComponent(nombres)
+                        .addGap(18, 18, 18)
+                        .addComponent(apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 158, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addContainerGap())))
         );
         jPanel5Layout.setVerticalGroup(
             jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel5Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 14, Short.MAX_VALUE)
+                .addGap(44, 44, 44)
                 .addComponent(jLabel3)
                 .addGap(51, 51, 51)
                 .addComponent(jLabel4)
                 .addGap(11, 11, 11)
-                .addComponent(nombreCompleto, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(0, 0, 0)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(apellidos, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(nombres, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jSeparator4, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(0, 0, 0)
-                .addComponent(jLabel5)
-                .addGap(11, 11, 11)
-                .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(lblUsuario)
+                    .addComponent(jLabel6))
+                .addGap(10, 10, 10)
+                .addGroup(jPanel5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(contrasena, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(usr, javax.swing.GroupLayout.PREFERRED_SIZE, 30, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(0, 0, 0)
                 .addComponent(jSeparator5, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(10, 10, 10)
@@ -287,7 +396,7 @@ public class Login extends javax.swing.JFrame {
                         .addComponent(jLabel10)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jSeparator2, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addGap(0, 86, Short.MAX_VALUE))
+                .addGap(0, 47, Short.MAX_VALUE))
         );
 
         btnRegistro.getAccessibleContext().setAccessibleDescription("");
@@ -303,32 +412,35 @@ public class Login extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_emailActionPerformed
 
-    private void nombreCompletoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreCompletoMouseClicked
-        // TODO add your handling code here:
-        nombreCompleto.setText("");
-    }//GEN-LAST:event_nombreCompletoMouseClicked
+    private void apellidosMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_apellidosMouseClicked
+
+    }//GEN-LAST:event_apellidosMouseClicked
 
     private void emailFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_emailFocusGained
         // TODO add your handling code here:
         email.setText("");
     }//GEN-LAST:event_emailFocusGained
 
-    private void contrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasenaFocusGained
-        // TODO add your handling code here:
-        contrasena.setText("");
-    }//GEN-LAST:event_contrasenaFocusGained
-
     private void btnRegistroMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btnRegistroMouseClicked
-        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
 
-        toFront();
-        btnRegistro();
+            toFront();
+            btnRegistro();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_btnRegistroMouseClicked
 
     private void textoBotonMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_textoBotonMouseClicked
-        // TODO add your handling code here:
-        btnRegistro.action(null, null);
-        btnRegistro();
+        try {
+            // TODO add your handling code here:
+            btnRegistro.action(null, null);
+            btnRegistro();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_textoBotonMouseClicked
 
     private void jPanel2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jPanel2MouseClicked
@@ -340,74 +452,143 @@ public class Login extends javax.swing.JFrame {
 
     }//GEN-LAST:event_jPanel2MouseDragged
 
-    private void nombreCompletoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCompletoActionPerformed
+    private void apellidosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidosActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombreCompletoActionPerformed
+    }//GEN-LAST:event_apellidosActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         System.exit(0);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel10MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel10MouseClicked
-        if (registrarseOentrar == 0) {
-            registrarseOentrar = 1;            
+        if (registrarseOentrar == 0) { // el usuario ya tiene una cuenta
+            registrarseOentrar = 1;
+
+            //cambiando algunas etiquetas
             textoBoton.setText("Entrar");
             jLabel10.setText("Crear una cuenta");
+            jLabel4.setText("Usuario");
+            usr.setText("Tu apodo o NickName");
+
+            //al cambiar registrarse por entrar se limpian los campos
+            apellidos.setText("");
+            contrasena.setText("Contrasena");
+
+            //ocultamos los campos que ya no vamos a necesitar
+            contrasena.setText("contrasena");
             emailLabel.setVisible(false);
             email.setVisible(false);
             separadorCorreo.setVisible(false);
+            apellidos.setVisible(false);
+            jLabel4.setVisible(false);
+            nombres.setVisible(false);
+            jSeparator4.setVisible(false);
 
-        } else {
+        } else { // el usuario no tiene una cuenta
             registrarseOentrar = 0;
             textoBoton.setText("Registrarse");
             jLabel10.setText("Tengo una cuenta");
+            nombres.setText("Nombres");
+            apellidos.setText("Apellidos");
+            usr.setText("Así te verán tus amigos");
+
             emailLabel.setVisible(true);
             email.setVisible(true);
             separadorCorreo.setVisible(true);
+            jLabel4.setVisible(true);
+            nombres.setVisible(true);
+            jSeparator4.setVisible(true);
+            apellidos.setVisible(true);
         }
 
 
     }//GEN-LAST:event_jLabel10MouseClicked
 
+    private void nombreCompleto1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombreCompleto1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreCompleto1MouseClicked
+
+    private void nombreCompleto1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombreCompleto1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombreCompleto1ActionPerformed
+
+    private void nombresMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_nombresMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombresMouseClicked
+
+    private void nombresActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombresActionPerformed
+
+    }//GEN-LAST:event_nombresActionPerformed
+
+    private void contrasenaFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_contrasenaFocusGained
+        // TODO add your handling code here:
+        contrasena.setText("");
+    }//GEN-LAST:event_contrasenaFocusGained
+
+    private void usrMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usrMouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usrMouseClicked
+
+    private void usrActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_usrActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_usrActionPerformed
+
+    private void usrFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_usrFocusGained
+        usr.setText("");
+    }//GEN-LAST:event_usrFocusGained
+
+    private void nombresFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_nombresFocusGained
+        nombres.setText("");
+    }//GEN-LAST:event_nombresFocusGained
+
+    private void nombresKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_nombresKeyTyped
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nombresKeyTyped
+
+    private void apellidosFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_apellidosFocusGained
+        apellidos.setText("");
+    }//GEN-LAST:event_apellidosFocusGained
+
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(() -> {
-            try {
-                new Login().setVisible(true);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        });
-    }
+//    public static void main(String args[]) {
+//        /* Set the Nimbus look and feel */
+//        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+//        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+//         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+//         */
+//        try {
+//            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+//                if ("Nimbus".equals(info.getName())) {
+//                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+//                    break;
+//                }
+//            }
+//        } catch (ClassNotFoundException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (InstantiationException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (IllegalAccessException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+//            java.util.logging.Logger.getLogger(Login.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+//        }
+//        //</editor-fold>
+//        //</editor-fold>
+//
+//        /* Create and display the form */
+//        java.awt.EventQueue.invokeLater(() -> {
+//            try {
+//                new Login().setVisible(true);
+//            } catch (InterruptedException | UnsupportedEncodingException ex) {
+//                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+//            }
+//        });
+//    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellidos;
     private javax.swing.JPanel btnRegistro;
     private javax.swing.JPasswordField contrasena;
     private javax.swing.JTextField email;
@@ -418,7 +599,7 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
@@ -429,16 +610,63 @@ public class Login extends javax.swing.JFrame {
     private javax.swing.JSeparator jSeparator3;
     private javax.swing.JSeparator jSeparator4;
     private javax.swing.JSeparator jSeparator5;
-    private javax.swing.JTextField nombreCompleto;
+    private javax.swing.JLabel lblUsuario;
+    private javax.swing.JTextField nombreCompleto1;
+    private javax.swing.JTextField nombres;
     private javax.swing.JSeparator separadorCorreo;
     private javax.swing.JLabel textoBoton;
+    private javax.swing.JTextField usr;
     // End of variables declaration//GEN-END:variables
 
-    private void btnRegistro() {
-        //impresion por consola
-        System.out.println("\nNombre: " + nombreCompleto.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
+    private void btnRegistro() throws UnsupportedEncodingException {
+
+        if (registrarseOentrar == 0) { // se ejecuta cuando el usuario va a registrarse
+            try {
+                //impresion por consola
+                System.out.println("\nNombre: " + nombres.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
+
+                c.peticion("/usuariocrear", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&"
+                        + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8") + "&"
+                        + URLEncoder.encode("nombres", "UTF-8") + "=" + URLEncoder.encode(nombres.getText().trim(), "UTF-8") + "&"
+                        + URLEncoder.encode("apellidos", "UTF-8") + "=" + URLEncoder.encode(apellidos.getText().trim(), "UTF-8") + "&"
+                        + URLEncoder.encode("estado", "UTF-8") + "=" + URLEncoder.encode("1", "UTF-8") + "&"
+                        + URLEncoder.encode("bloqueado", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8") + "&"
+                        + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email.getText().trim(), "UTF-8")
+                );
+            } catch (IOException ex) {
+                Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        } else {// se ejecuta cuando el usuario ya tiene una cuenta
+            String respuesta = c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
+            switch (respuesta) {
+                case "101":
+                    //TODO : Encapsular en bean. 
+                    usuario = usr.getText();
+                    passw = contrasena.getText();
+                    estado = "Conectado";
+                    bloqueado = "0";
+
+                    //TODO: Recibir ID usuario , token servidor y demas ..
+                    Usuario u = new Usuario();
+                    u.setUsr(usr.getText());
+                    u.setPass(contrasena.getText());
+
+                    chat = new Chat(this,u);
+                    chat.datosUser(usuario, passw, estado, bloqueado, c);
+
+                    this.dispose();
+                    chat.setVisible(true);
+                    break;
+                case "201":
+                    JOptionPane.showMessageDialog(this, "El usuario no está registrado", "Error!", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    throw new AssertionError();
+            }
+
+        }
 
     }
 
-    
 }
