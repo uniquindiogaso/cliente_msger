@@ -8,13 +8,13 @@ import java.util.HashMap;
 
 public class Client {
 
-    final static int IPSERVER = 1234;
+    final static int IPSERVER = 2300;
 
     public void emitir(String mensaje) throws UnknownHostException, IOException {
-        System.out.println("==> "+mensaje);
-        System.out.println("==> "+InetAddress.getByName("localhost"));
+        
         // Establecer Conexion por Socket 
-        Socket s = new Socket( InetAddress.getByName("localhost"), IPSERVER);
+        Socket s = new Socket( "ceam-csp.me", IPSERVER);
+        System.out.println("s = " + s);
 
         // Obtener flujos de entrada y salida
         DataInputStream flujoEntrada = new DataInputStream(s.getInputStream());

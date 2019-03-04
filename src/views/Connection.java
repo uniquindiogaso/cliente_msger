@@ -38,6 +38,7 @@ public class Connection {
         try {
 
             Socket socket = new Socket(HOST, 8000);
+            System.out.println("socket = " + socket);
 
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
             wr.write("POST " + path + " HTTP/1.0\r\n");
