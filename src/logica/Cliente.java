@@ -5,9 +5,11 @@
  */
 package logica;
 
+import java.io.BufferedReader;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.InetAddress;
 import java.net.Socket;
 import java.util.HashMap;
@@ -22,7 +24,7 @@ public class Cliente {
 
     private Socket clientSocket;
     private DataOutputStream salidaDatos;
-    private DataInputStream entradaDatos;
+    private BufferedReader entradaDatos;
 
     private Usuario u;
     private Chat ventana;
@@ -38,75 +40,92 @@ public class Cliente {
             clientSocket = new Socket(ip, PORT);
 
             salidaDatos = new DataOutputStream(clientSocket.getOutputStream());
-            entradaDatos = new DataInputStream(clientSocket.getInputStream());
+            entradaDatos = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
 
             System.out.println("... Definiendo flujos de I/O");
 
-            Thread sendMessage = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        // read the message to deliver. 
-                        String entrada = msj;
-                        try {
-                            // write on the output stream 
-                            salidaDatos.writeUTF(entrada);
+//            Thread sendMessage = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    while (true) {
+//                        // read the message to deliver. 
+//                        String entrada = msj;
+//                        try {
+//                            // write on the output stream 
+//                            salidaDatos.writeUTF(entrada);
+//                            salidaDatos.flush();
+//
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                        }
+//                    }
+//                }
+//            });
 
-                        } catch (IOException e) {
-                            e.printStackTrace();
+//                Thread escuchador = new Thread(new Runnable() {
+//                @Override
+//                public void run() {
+//                    while (true) {
+//                        try {
+//                            System.out.println("cliente escucha ????" + entradaDatos.readLine() );
+//                            if (!clientSocket.isClosed() && entradaDatos.ready()) {
+//                                System.out.println(entradaDatos.readLine() + "\n");
+//                                msj = "";
+//
+//                            }
+//                        } catch (IOException e) {
+//                            e.printStackTrace();
+//                            System.out.println("Comunicación finalizada!!!!");
+//                            // break;
+//                        }
+//                    }
+//                }
+//            });
+//            escuchador.start();
+
+        // readMessage thread 
+        Thread readMessage = new Thread(new Runnable() {
+            @Override
+            public void run() {
+                
+                while (true) {
+                    try {
+                        // read the message sent to this client 
+                        String mensaje = entradaDatos.readLine()+"\n";
+                        
+                        HashMap<String, String> p = Utilidades.parametros(mensaje);
+                        
+                        String accion = p.get("tipo");
+
+                        if (null != accion) //si accion es Enviar Mensaje:
+                        switch (accion) {
+                            case Acciones._MSJ:
+                                TareasCliente.mensaje(p);
+                                break;
+                            case Acciones._ARCHIVO:
+                                TareasCliente.archivo(p);
+                                break;
+                            case Acciones._LISTAUSUARIOS:
+                                TareasCliente.listadoAmigos(p);
+                                break;
+                            case Acciones._SOLICITUDES:
+                                TareasCliente.solicitudes(p);
+                                break;
+                            default:
+                                break;
                         }
+                        
+                    } catch (IOException e) {
+                        
+                        e.printStackTrace();
                     }
                 }
-            });
+            }
+        });
+        
+        
+        readMessage.start();
 
-            Thread escuchador = new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    while (true) {
-                        try {
-
-                            // if (!clientSocket.isClosed() && entradaDatos.ready()) {
-                            String mensaje = entradaDatos.readUTF();
-                            System.out.println("Mensaje :\n" + mensaje);
-
-                            HashMap<String, String> p = Utilidades.parametros(mensaje);
-
-                            String accion = p.get("tipo");
-
-                            if (null != accion) //si accion es Enviar Mensaje:
-                            {
-                                switch (accion) {
-                                    case Acciones._MSJ:
-                                        //aqui enviamos a gui
-                                        TareasCliente.mensaje(p);
-                                        break;
-                                    case Acciones._ARCHIVO:
-                                        TareasCliente.archivo(p);
-                                        break;
-                                    case Acciones._LISTAUSUARIOS:
-                                        TareasCliente.listadoAmigos(p);
-                                        break;
-                                    case Acciones._SOLICITUDES:
-                                        TareasCliente.solicitudes(p);
-                                        break;
-                                    default:
-                                        break;
-                                }
-                            }
-
-                            //}
-                        } catch (IOException e) {
-                            e.printStackTrace();
-                            System.out.println("Comunicación finalizada!!!!");
-                            // break;
-                        }
-                    }
-                }
-            });
-
-            sendMessage.start();
-            escuchador.start();
-//           
 
         } catch (IOException ex) {
             Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
@@ -129,10 +148,15 @@ public class Cliente {
      */
     public void enviar(String msj) {
 
-        //String t = "#MSJ||FQLSHP||c0||c1||Hola :)";//String.format("%s|%s|%s", nombre, color.getRGB(), msj);
-        //salidaDatos.writeBytes(t + "\n");
-        System.out.println("msj??? " + msj);
-        this.msj = msj;
+        try {
+            //String t = "#MSJ||FQLSHP||c0||c1||Hola :)";//String.format("%s|%s|%s", nombre, color.getRGB(), msj);
+            //salidaDatos.writeBytes(t + "\n");
+            //System.out.println("msj??? " + msj);
+            //this.msj = msj;
+            salidaDatos.writeBytes(msj + "\n");
+        } catch (IOException ex) {
+            Logger.getLogger(Cliente.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
     }
 

@@ -310,8 +310,7 @@ public class Chat extends javax.swing.JFrame {
 
     private void enviarChat() throws IOException {
          //new logica.Client().emitir(txtChat.getText().trim());
-         clienteSocket.enviar("#MSJ||FQLSHP||c0||c1||Hola :)");
-         clienteSocket.enviar("");
+         clienteSocket.enviar("#MSJ||FQLSHP||c0||c1||Hola :)"+"\n");         
         
     }
 
