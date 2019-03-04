@@ -5,6 +5,11 @@
  */
 package views;
 
+import java.awt.Container;
+import java.awt.GridLayout;
+import javax.swing.text.BadLocationException;
+import javax.swing.text.Document;
+
 /**
  *
  * @author German
@@ -13,6 +18,10 @@ public class Chat extends javax.swing.JFrame {
 
     Login login;
     UserUpdate update = new UserUpdate();
+   private static PanelEmoticons panelEmoticons;
+   Document document;
+   
+   
 
     /**
      * Creates new form Chat
@@ -20,9 +29,24 @@ public class Chat extends javax.swing.JFrame {
     public Chat() {
         initComponents();
         setLocationRelativeTo(null);
-        jLabel2.setText(login.getUsuario());
+        //jLabel2.setText(login.getUsuario());
+        
+        panelEmoticons= new PanelEmoticons(this);
+        panelEmoticons.setSize(700, 200);
+        PanelEmot.add(panelEmoticons);
+        document=jTextArea2.getDocument();
+        
+        
     }
-
+public void insertString(String string){
+		try {
+			
+			document.insertString(jTextArea2.getText().length(),string, null);
+		} catch (BadLocationException e) {
+		
+			e.printStackTrace();
+		}
+	}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -51,6 +75,7 @@ public class Chat extends javax.swing.JFrame {
         jTextArea2 = new javax.swing.JTextArea();
         lbEnviar = new javax.swing.JLabel();
         lbArchivos = new javax.swing.JLabel();
+        PanelEmot = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -189,6 +214,17 @@ public class Chat extends javax.swing.JFrame {
 
         lbArchivos.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura5.JPG"))); // NOI18N
 
+        javax.swing.GroupLayout PanelEmotLayout = new javax.swing.GroupLayout(PanelEmot);
+        PanelEmot.setLayout(PanelEmotLayout);
+        PanelEmotLayout.setHorizontalGroup(
+            PanelEmotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 0, Short.MAX_VALUE)
+        );
+        PanelEmotLayout.setVerticalGroup(
+            PanelEmotLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 55, Short.MAX_VALUE)
+        );
+
         javax.swing.GroupLayout PanelChatLayout = new javax.swing.GroupLayout(PanelChat);
         PanelChat.setLayout(PanelChatLayout);
         PanelChatLayout.setHorizontalGroup(
@@ -203,7 +239,8 @@ public class Chat extends javax.swing.JFrame {
                         .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(lbArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(lbEnviar))
-                        .addGap(0, 126, Short.MAX_VALUE)))
+                        .addGap(0, 126, Short.MAX_VALUE))
+                    .addComponent(PanelEmot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelChatLayout.setVerticalGroup(
@@ -211,14 +248,16 @@ public class Chat extends javax.swing.JFrame {
             .addGroup(PanelChatLayout.createSequentialGroup()
                 .addGap(20, 20, 20)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelEmot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addGroup(PanelChatLayout.createSequentialGroup()
                         .addComponent(lbArchivos)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(lbEnviar))
-                    .addComponent(jScrollPane3))
-                .addContainerGap(47, Short.MAX_VALUE))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(lbEnviar)))
+                .addContainerGap())
         );
 
         jPanel1.add(PanelChat, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 160, 670, 440));
@@ -227,15 +266,15 @@ public class Chat extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 901, Short.MAX_VALUE)
+            .addGap(0, 900, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 901, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 601, Short.MAX_VALUE)
+            .addGap(0, 644, Short.MAX_VALUE)
             .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 601, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 644, Short.MAX_VALUE))
         );
 
         pack();
@@ -291,6 +330,7 @@ public class Chat extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelChat;
+    private static javax.swing.JPanel PanelEmot;
     private javax.swing.JPanel PanelMain;
     private javax.swing.JPanel PanelNotificaciones;
     private javax.swing.JLabel jLabel1;
@@ -314,5 +354,5 @@ public class Chat extends javax.swing.JFrame {
     void datosUser(String usr, String pass,String estado, String bloqueado,Connection c) {        
         update.cargarDatos(usr,pass,estado,bloqueado,c);
     }
-
+  
 }
