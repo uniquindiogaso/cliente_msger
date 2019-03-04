@@ -23,18 +23,22 @@ import javax.swing.JOptionPane;
 public class Connection {
 
     private static Connection conexion;
-    static final String HOST = "206.189.172.62";
+    static final String HOST = "localhost";
     static final String USR = "juan";
     static final String PASS = "juan";
+    String respuestaServidor;
 
     public Connection() {
+        respuestaServidor = "";
     }
 
-    public void peticion(String path, String data) {
-        System.out.println("Ejecutando conexion ....");
+    public String peticion(String path, String data) {
+        //System.out.println("Ejecutando conexion ....");
+
         try {
-            
+
             Socket socket = new Socket(HOST, 8000);
+            System.out.println("socket = " + socket);
 
             BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
             wr.write("POST " + path + " HTTP/1.0\r\n");
@@ -46,10 +50,29 @@ public class Connection {
             wr.flush();
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-            String line;
-            while ((line = rd.readLine()) != null) {
-                System.out.println(line);
+            String lineaActual = "";
+            String respuesta = "";
+            while ((lineaActual = rd.readLine()) != null) {
+                respuesta = lineaActual;
             }
+           
+            String codigo = respuesta.substring(0, 3); // fix ... enviarle en el 101 el ID
+
+            switch (codigo) {
+                case "200": //error general
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "201": // no existe un usuario con esos datos
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "301": // usuario inhabilitado/bloqueado
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "101": // Usuario autenticado correctamente
+                    this.respuestaServidor = respuesta;
+                    break;
+            }
+
             wr.close();
             rd.close();
         } catch (UnsupportedEncodingException ex) {
@@ -59,6 +82,7 @@ public class Connection {
             JOptionPane.showMessageDialog(null, "No logramos conectarte con un servidor, inténtalo más tarde.", "Oops! algo va mal", JOptionPane.INFORMATION_MESSAGE);
             System.exit(0);
         }
+        return this.respuestaServidor;
     }
 
     public Connection(String conexion) {
