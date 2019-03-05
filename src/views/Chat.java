@@ -11,9 +11,6 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import java.io.IOException;
-import java.util.StringTokenizer;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -24,6 +21,8 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
+import logica.Cliente;
+import logica.Usuario;
 //import logica.Cliente;
 //import logica.Usuario;
 
@@ -41,20 +40,20 @@ public class Chat extends javax.swing.JFrame {
     private StyledDocument styledDocument;
     private StyleContext context;
     private boolean blockEmotes = false;
-    //private Usuario u;
-    //Cliente clienteSocket;
+    private Usuario u;
+    Cliente clienteSocket;
 
     /**
      * Creates new form Chat
      *
      * @param login
      */
-    //public Chat(Login login , Usuario u) {
-    public Chat() {
+    public Chat(Login login, Usuario u) {
+
         initComponents();
         this.login = login;
-        //this.u = u;
-        //clienteSocket = new Cliente(u, this);
+        this.u = u;
+        clienteSocket = new Cliente(u, this);
         setLocationRelativeTo(null);
         //jLabel2.setText(login.getUsuario());        
         panelEmoticons = new PanelEmoticons(this);
@@ -64,12 +63,11 @@ public class Chat extends javax.swing.JFrame {
 
         //jLabel2.setText(login.getUsuario());
         //"#MSJ||FQLSHP||c0||c2||Hola :)"
-        //clienteSocket.enviar("#HOLA||FQLSHP||"+u.getId()+"||s3rv1d0r||"+u.getId() + "\n" );
+        clienteSocket.enviar("#HOLA||FQLSHP||" + u.getId() + "||s3rv1d0r||" + u.getId() + "\n");
     }
 
     public void insertString(String string) {
         try {
-
             document.insertString(txtChat.getText().length(), string, null);
         } catch (BadLocationException e) {
 
@@ -375,7 +373,7 @@ public class Chat extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Chat().setVisible(true);
+                //new Chat().setVisible(true);
             }
         });
     }
@@ -424,7 +422,7 @@ public class Chat extends javax.swing.JFrame {
         Style labelStyle = context.getStyle(StyleContext.DEFAULT_STYLE);
         Icon icon = ic;
         JLabel label = new JLabel(icon);
-        StyleConstants.setComponent(labelStyle, label);       
+        StyleConstants.setComponent(labelStyle, label);
         try {
             styledDocument.insertString(styledDocument.getLength(), atajo, labelStyle);
             txtAreaChat.setStyledDocument(styledDocument);
@@ -480,5 +478,5 @@ public class Chat extends javax.swing.JFrame {
         }
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
-    
+
 }
