@@ -262,25 +262,23 @@ public class Chat extends javax.swing.JFrame {
         PanelChatLayout.setHorizontalGroup(
             PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelChatLayout.createSequentialGroup()
+                .addContainerGap()
                 .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane4)
                     .addGroup(PanelChatLayout.createSequentialGroup()
-                        .addContainerGap()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(PanelChatLayout.createSequentialGroup()
-                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(lbArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(lbEnviar))
-                                .addGap(0, 126, Short.MAX_VALUE))
-                            .addComponent(PanelEmot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                    .addComponent(jScrollPane4))
+                            .addComponent(lbArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(lbEnviar))
+                        .addGap(0, 120, Short.MAX_VALUE))
+                    .addComponent(PanelEmot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
         PanelChatLayout.setVerticalGroup(
             PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelChatLayout.createSequentialGroup()
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelEmot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -336,7 +334,7 @@ public class Chat extends javax.swing.JFrame {
 //        }
         context = new StyleContext();
         styledDocument = new DefaultStyledDocument(context);
-        showMessage(txtChat.getText(), "", 1, 000);
+        showMessage(txtChat.getText(), "", 0, 000);
         System.out.println("Enviando : " + txtChat.getText());
         txtChat.setText("");
 
@@ -471,7 +469,7 @@ public class Chat extends javax.swing.JFrame {
             }
             styledDocument.insertString(styledDocument.getLength(), "" + "", attributeSetB);
         } catch (BadLocationException ble) {
-            System.err.println("Couldn't insert" + "text.");
+            System.err.println("Couldn't insert" + text);
         } catch (Exception e) {
             e.printStackTrace();
             JOptionPane.showMessageDialog(this, "OK", "::", JOptionPane.INFORMATION_MESSAGE);

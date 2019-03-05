@@ -664,6 +664,8 @@ public class Login extends javax.swing.JFrame {
                 case "201":
                     JOptionPane.showMessageDialog(this, "El usuario no está registrado", "Error!", JOptionPane.ERROR_MESSAGE);
                     break;
+                case "200": 
+                    JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado", "Error!", JOptionPane.ERROR_MESSAGE);
                 default:
                     throw new AssertionError();
             }
