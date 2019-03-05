@@ -36,7 +36,7 @@ public class Utilidades {
             res.put("listado", st.nextToken());
         }
 
-        System.out.println("Parametros Recibidos " + res.size());
+        //System.out.println("Parametros Recibidos " + res.size());
 
         return res;
     }

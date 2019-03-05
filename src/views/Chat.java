@@ -62,6 +62,8 @@ public class Chat extends javax.swing.JFrame {
     public Chat(Login login, Usuario u) {
     //public Chat() {
         initComponents();
+        txtAreaChat.setEditable(false);
+        //DesactivarPaneles(true); 
         c = new Connection();
         this.login = login;
         this.u = u;
@@ -155,6 +157,7 @@ public class Chat extends javax.swing.JFrame {
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
+        listaUsuariosUI.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
         jScrollPane1.setViewportView(listaUsuariosUI);
 
         javax.swing.GroupLayout PanelMainLayout = new javax.swing.GroupLayout(PanelMain);
@@ -576,5 +579,20 @@ public class Chat extends javax.swing.JFrame {
         clienteSocket.enviar("#DESCONECTAR||FQLSHP||" + u.getId() + "||s3rv1d0r||" + u.getId() + "\n");
         System.exit(0);
     }
+    
+    private void DesactivarPaneles(boolean parametro){
+        if (parametro) {
+            txtChat.setEnabled(false);
+            PanelEmot.setEnabled(false);
+            lbArchivos.setEnabled(false);
+            lbEnviar.setEnabled(false);
+        }else{
+            txtChat.setEnabled(true);
+            PanelEmot.setEnabled(true);
+            lbArchivos.setEnabled(true);
+            lbEnviar.setEnabled(true);
+        }
+        
+   }
 
 }
