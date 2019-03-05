@@ -354,7 +354,7 @@ public class Chat extends javax.swing.JFrame {
 //        }
         context = new StyleContext();
         styledDocument = new DefaultStyledDocument(context);
-        showMessage(txtChat.getText(), "", 0, 000);
+        showMessage("["+u.getId()+"]"+txtChat.getText(), "", 0, 000);
         System.out.println("Enviando : " + txtChat.getText());
         txtChat.setText("");
 
