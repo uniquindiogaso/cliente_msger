@@ -62,13 +62,22 @@ public class Connection {
                 case "200": //error general
                     this.respuestaServidor = respuesta;
                     break;
-                case "201": // no existe un usuario con esos datos
+                case "202": // no se pudo registrar usuario 
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "203": // no se pudo modicar registro
                     this.respuestaServidor = respuesta;
                     break;
                 case "301": // usuario inhabilitado/bloqueado
                     this.respuestaServidor = respuesta;
                     break;
                 case "101": // Usuario autenticado correctamente
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "102": // Usuario registrado correctamente
+                    this.respuestaServidor = respuesta;
+                    break;
+                case "103": // Usuario modificado correctamente
                     this.respuestaServidor = respuesta;
                     break;
             }

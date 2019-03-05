@@ -39,7 +39,7 @@ public class Login extends javax.swing.JFrame {
 
         //c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(Connection.USR, "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(Connection.PASS, "UTF-8"));
         initComponents();
-        textoBoton.requestFocusInWindow(); // esto permite que al iniciar la interfaz el foco esté en el botón y no en los campos (si el foco está en el primer campo no se podrá ver el texto placeholder)
+        //textoBoton.requestFocusInWindow(); // esto permite que al iniciar la interfaz el foco esté en el botón y no en los campos (si el foco está en el primer campo no se podrá ver el texto placeholder)
         setLocationRelativeTo(null);
 
     }
@@ -625,7 +625,7 @@ public class Login extends javax.swing.JFrame {
                 //impresion por consola
                 System.out.println("\nNombre: " + nombres.getText().trim() + "\nContraseña: " + new String(contrasena.getPassword()) + "\nEmail: " + email.getText().trim() + "\n----------------------");
 
-                c.peticion("/usuariocrear", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&"
+                String respuesta = c.peticion("/usuariocrear", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&"
                         + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8") + "&"
                         + URLEncoder.encode("nombres", "UTF-8") + "=" + URLEncoder.encode(nombres.getText().trim(), "UTF-8") + "&"
                         + URLEncoder.encode("apellidos", "UTF-8") + "=" + URLEncoder.encode(apellidos.getText().trim(), "UTF-8") + "&"
@@ -633,13 +633,22 @@ public class Login extends javax.swing.JFrame {
                         + URLEncoder.encode("bloqueado", "UTF-8") + "=" + URLEncoder.encode("0", "UTF-8") + "&"
                         + URLEncoder.encode("email", "UTF-8") + "=" + URLEncoder.encode(email.getText().trim(), "UTF-8")
                 );
+                 System.out.println("respuesta.substring(0,3) ===== "  + respuesta);
+                 switch (respuesta.substring(0,3)) {
+                    case "102":
+                        JOptionPane.showMessageDialog(this, "Usuario creado correctamente", "Listo!", JOptionPane.INFORMATION_MESSAGE);
+                    break;
+                    case "202":
+                        JOptionPane.showMessageDialog(this, "No se pudo crear el usuario", "Error!", JOptionPane.ERROR_MESSAGE);
+                    break;
+                 }  
             } catch (IOException ex) {
                 Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
             }
 
         } else {// se ejecuta cuando el usuario ya tiene una cuenta
             String respuesta = c.peticion("/status", URLEncoder.encode("usr", "UTF-8") + "=" + URLEncoder.encode(usr.getText().trim(), "UTF-8") + "&" + URLEncoder.encode("pass", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(contrasena.getPassword()), "UTF-8"));
-            System.out.println("respuesta.substring(0,3 ===== "  + respuesta);
+            System.out.println("respuesta.substring(0,3) ===== "  + respuesta);
             switch (respuesta.substring(0,3)) {
                 case "101":
                     //TODO : Encapsular en bean. 
@@ -661,11 +670,15 @@ public class Login extends javax.swing.JFrame {
                     this.dispose();
                     chat.setVisible(true);
                     break;
-                case "201":
-                    JOptionPane.showMessageDialog(this, "El usuario no está registrado", "Error!", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case "200": 
+                case "200": //error general
                     JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado", "Error!", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case "201": //usuario no existe
+                    JOptionPane.showMessageDialog(this, "El usuario no está registrado", "Error!", JOptionPane.ERROR_MESSAGE);
+                    break; 
+               case "301": // usuario inhabilitado/bloqueado
+                      JOptionPane.showMessageDialog(this, "El usuario está inhabilitado/bloqueado", "Error!", JOptionPane.ERROR_MESSAGE);
+                    break;
                 default:
                     throw new AssertionError();
             }
