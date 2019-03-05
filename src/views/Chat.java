@@ -13,8 +13,10 @@ import javax.swing.text.Document;
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -35,6 +37,7 @@ import logica.Usuario;
  * @author German
  */
 public class Chat extends javax.swing.JFrame {
+
     Connection c;
     Login login;
     UserUpdate update = new UserUpdate();
@@ -47,6 +50,8 @@ public class Chat extends javax.swing.JFrame {
     private Usuario u;
     Cliente clienteSocket;
 
+    private String listadoSolicitudes;
+
     /**
      * Creates new form Chat
      *
@@ -54,9 +59,9 @@ public class Chat extends javax.swing.JFrame {
      * @param u
      */
     public Chat(Login login, Usuario u) {
-        
+
         initComponents();
-        c= new Connection();
+        c = new Connection();
         this.login = login;
         this.u = u;
         clienteSocket = new Cliente(u, this);
@@ -67,7 +72,7 @@ public class Chat extends javax.swing.JFrame {
         PanelEmot.add(panelEmoticons);
         document = txtChat.getDocument();
 
-        //jLabel2.setText(login.getUsuario());
+        LabelNombreUsuario.setText("Hola ¡" + u.getUsr() + "!");
         //"#MSJ||FQLSHP||c0||c2||Hola :)"
         clienteSocket.enviar("#HOLA||FQLSHP||" + u.getId() + "||s3rv1d0r||" + u.getId() + "\n");
     }
@@ -93,11 +98,11 @@ public class Chat extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         PanelMain = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
+        LabelNombreUsuario = new javax.swing.JLabel();
         jTextField1 = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
+        listaUsuariosUI = new javax.swing.JList<>();
         PanelNotificaciones = new javax.swing.JPanel();
         lbCerrar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -130,7 +135,7 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
-        jLabel2.setText("Hola pepito!");
+        LabelNombreUsuario.setText("Hola pepito!");
 
         jTextField1.setText("Nick....");
 
@@ -143,13 +148,13 @@ public class Chat extends javax.swing.JFrame {
             }
         });
 
-        jList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
-            String[] strings = { "Usuario 1", "Usuario 2", "Usuario 3", "Usuario 4", "Usuario 5" };
+        listaUsuariosUI.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        listaUsuariosUI.setModel(new javax.swing.AbstractListModel<String>() {
+            String[] strings = { "Sin Amigos :(" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(listaUsuariosUI);
 
         javax.swing.GroupLayout PanelMainLayout = new javax.swing.GroupLayout(PanelMain);
         PanelMain.setLayout(PanelMainLayout);
@@ -164,7 +169,7 @@ public class Chat extends javax.swing.JFrame {
                             .addGroup(PanelMainLayout.createSequentialGroup()
                                 .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                                .addComponent(LabelNombreUsuario, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                             .addGroup(PanelMainLayout.createSequentialGroup()
                                 .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, 147, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -178,7 +183,7 @@ public class Chat extends javax.swing.JFrame {
                 .addGap(32, 32, 32)
                 .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(jLabel1)
-                    .addComponent(jLabel2))
+                    .addComponent(LabelNombreUsuario))
                 .addGap(18, 18, 18)
                 .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                     .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 39, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -331,8 +336,10 @@ public class Chat extends javax.swing.JFrame {
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-        ControlSolicitud control = new ControlSolicitud();
-        control.setVisible(true);
+        if (listadoSolicitudes != null && !listadoSolicitudes.isEmpty()) {
+            ControlSolicitud control = new ControlSolicitud(listadoSolicitudes);
+            control.setVisible(true);
+        }
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
@@ -354,12 +361,17 @@ public class Chat extends javax.swing.JFrame {
 
     private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
         try {
-            String peticion=c.pedirUsuarios("/obtenerusuarios", URLEncoder.encode("usuario_id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(u.getId()),"UTF-8"));
+            String peticion = c.pedirUsuarios("/obtenerusuarios", URLEncoder.encode("usuario_id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(u.getId()), "UTF-8"));
             System.out.println("peticion = " + peticion);
+
+            if (!peticion.isEmpty()) {
+                construirListadoUsuarios(peticion);
+            }
+
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
@@ -397,16 +409,15 @@ public class Chat extends javax.swing.JFrame {
         });
     }
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel LabelNombreUsuario;
     private javax.swing.JPanel PanelChat;
     private static javax.swing.JPanel PanelEmot;
     private javax.swing.JPanel PanelMain;
     private javax.swing.JPanel PanelNotificaciones;
     private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -415,9 +426,14 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JLabel lbArchivos;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbEnviar;
+    private javax.swing.JList<String> listaUsuariosUI;
     private javax.swing.JTextPane txtAreaChat;
     public javax.swing.JTextArea txtChat;
     // End of variables declaration//GEN-END:variables
+
+    public void setListadoSolicitudes(String listadoSolicitudes) {
+        this.listadoSolicitudes = listadoSolicitudes;
+    }
 
     void datosUser(String usr, String pass, String estado, String bloqueado, Connection c) {
         update.cargarDatos(usr, pass, estado, bloqueado, c);
@@ -497,5 +513,57 @@ public class Chat extends javax.swing.JFrame {
         }
     }
     //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+
+    private void construirListadoUsuarios(String peticion) {
+
+        String[] usuarios = peticion.split("\n");
+
+        ArrayList<Object> us = new ArrayList<>();
+
+        for (String u : usuarios) {
+            String[] data = u.split("\\|\\|");
+            us.add(new Usuario(Integer.valueOf(data[0]), data[1]));
+        }
+
+        Object opcion = JOptionPane.showInputDialog(null, "Selecciona un color", "Elegir", JOptionPane.QUESTION_MESSAGE, null, us.toArray(), null);
+        if (opcion != null) {
+            try {
+                Usuario seleccionado = (Usuario) opcion;
+
+                System.out.println("ID " + seleccionado.getId());
+
+                String parametros = URLEncoder.encode("de", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(u.getId()), "UTF-8") + "&"
+                        + URLEncoder.encode("para", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(seleccionado.getId()), "UTF-8");
+
+                System.out.println("Parametros " + parametros);
+
+                //enviar solicitud de amistad
+                String resSolicitud = c.enviarInfoEndPoint("/enviarsolicitud", parametros);
+
+                if (resSolicitud.equals("704")) {
+                    JOptionPane.showMessageDialog(this, "Solicitud de Amistad Enviada!");
+                }
+
+                System.out.println("REspuesta Soliucitud amistad " + resSolicitud);
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+
+    }
+
+    public void actualiarUIAmigosActivos(String listadoAmigos) {
+
+        DefaultListModel modelo = new DefaultListModel();
+
+        String[] amigos = listadoAmigos.split("&&");
+
+        for (String u : amigos) {
+            modelo.addElement(u);
+        }
+
+        listaUsuariosUI.setModel(modelo);
+    }
 
 }

@@ -5,7 +5,12 @@
  */
 package views;
 
-
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -13,15 +18,17 @@ package views;
  */
 public class ControlSolicitud extends javax.swing.JFrame {
 
-
     /**
      * Creates new form UserUpdate
      */
-    public ControlSolicitud() {
+    private Connection c;
+
+    public ControlSolicitud(String listadoSolicitudes) {
         initComponents();
+        setLocationRelativeTo(null);
+        c = new Connection();
+        configurarSolicitudes(listadoSolicitudes);
     }
-
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -33,14 +40,12 @@ public class ControlSolicitud extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jList1 = new javax.swing.JList<>();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
+        jListSolicitudes = new javax.swing.JList<>();
+        bAceptarSolicitud = new javax.swing.JButton();
+        bRechazarSolicutud = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -51,31 +56,30 @@ public class ControlSolicitud extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(97, 212, 195));
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura2.JPG"))); // NOI18N
-        jLabel1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 5, true));
-
-        jLabel2.setText("Pepito Perez.");
+        jLabel2.setFont(new java.awt.Font("Tahoma", 0, 24)); // NOI18N
+        jLabel2.setText("Solicitudes de amistad");
 
         jPanel2.setBackground(new java.awt.Color(36, 47, 65));
 
-        jLabel3.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel3.setText("Solicitudes de amistad");
-
-        jList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
-        jList1.setModel(new javax.swing.AbstractListModel<String>() {
+        jListSolicitudes.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
+        jListSolicitudes.setModel(new javax.swing.AbstractListModel<String>() {
             String[] strings = { "Usuario 1", "Usuario 2", "Usuario 3", "Usuario 4", "Usuario 5" };
             public int getSize() { return strings.length; }
             public String getElementAt(int i) { return strings[i]; }
         });
-        jScrollPane1.setViewportView(jList1);
+        jScrollPane1.setViewportView(jListSolicitudes);
 
-        jButton1.setText("Agregar");
-
-        jButton2.setText("Rechazar");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        bAceptarSolicitud.setText("Agregar");
+        bAceptarSolicitud.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                bAceptarSolicitudActionPerformed(evt);
+            }
+        });
+
+        bRechazarSolicutud.setText("Rechazar");
+        bRechazarSolicutud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bRechazarSolicutudActionPerformed(evt);
             }
         });
 
@@ -86,29 +90,22 @@ public class ControlSolicitud extends javax.swing.JFrame {
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel3)
-                        .addGap(0, 143, Short.MAX_VALUE))
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING)
-                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                                .addComponent(jButton2)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton1)))
-                        .addContainerGap())))
+                        .addComponent(bRechazarSolicutud)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 90, Short.MAX_VALUE)
+                        .addComponent(bAceptarSolicitud)))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createSequentialGroup()
-                .addContainerGap(12, Short.MAX_VALUE)
-                .addComponent(jLabel3)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(32, Short.MAX_VALUE)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1)
-                    .addComponent(jButton2))
+                    .addComponent(bAceptarSolicitud)
+                    .addComponent(bRechazarSolicutud))
                 .addContainerGap())
         );
 
@@ -116,24 +113,18 @@ public class ControlSolicitud extends javax.swing.JFrame {
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 83, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 86, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel1)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel2)
-                        .addGap(39, 39, 39)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addContainerGap(54, Short.MAX_VALUE)
+                .addComponent(jLabel2)
+                .addGap(39, 39, 39)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
@@ -155,9 +146,13 @@ public class ControlSolicitud extends javax.swing.JFrame {
 
     }//GEN-LAST:event_formWindowOpened
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private void bRechazarSolicutudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bRechazarSolicutudActionPerformed
+        rechazarSolicitud();
+    }//GEN-LAST:event_bRechazarSolicutudActionPerformed
+
+    private void bAceptarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bAceptarSolicitudActionPerformed
+        aceptarSolicitud();
+    }//GEN-LAST:event_bAceptarSolicitudActionPerformed
 
 //    /**
 //     * @param args the command line arguments
@@ -196,15 +191,66 @@ public class ControlSolicitud extends javax.swing.JFrame {
 //    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JLabel jLabel1;
+    private javax.swing.JButton bAceptarSolicitud;
+    private javax.swing.JButton bRechazarSolicutud;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JList<String> jList1;
+    private javax.swing.JList<String> jListSolicitudes;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     // End of variables declaration//GEN-END:variables
+
+    private void configurarSolicitudes(String listadoSolicitudes) {
+        System.out.println("Esperando por formatear solicitudes de amistad");
+
+        DefaultListModel modelo = new DefaultListModel();
+
+        String[] solicitudes = listadoSolicitudes.split("&&");
+
+        for (String s : solicitudes) {
+            modelo.addElement(s);
+        }
+
+        jListSolicitudes.setModel(modelo);
+    }
+
+    private void aceptarSolicitud() {
+        String seleccionado = jListSolicitudes.getSelectedValue();
+        if (seleccionado != null && !seleccionado.isEmpty()) {
+            String parametros;
+            try {
+                parametros = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(seleccionado), "UTF-8");
+                String res = c.enviarInfoEndPoint("/aceptarsolicitud", parametros);
+                System.out.println("Respuesta de aceptacion solicitud " + res);
+
+                if ("602".equals(res)) {
+                    JOptionPane.showMessageDialog(this, "Solicitud Aceptada");
+                    this.setVisible(false);
+                }
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ControlSolicitud.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
+
+    private void rechazarSolicitud() {
+        String seleccionado = jListSolicitudes.getSelectedValue();
+        if (seleccionado != null && !seleccionado.isEmpty()) {
+            String parametros;
+            try {
+                parametros = URLEncoder.encode("id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(seleccionado), "UTF-8");
+                String res = c.enviarInfoEndPoint("/rechazarsolicitud", parametros);
+                System.out.println("Respuesta de aceptacion solicitud " + res);
+                if ("603".equals(res)) {
+                    JOptionPane.showMessageDialog(this, "Solicitud Rechazada!");
+                    this.setVisible(false);
+                }
+            } catch (UnsupportedEncodingException ex) {
+                Logger.getLogger(ControlSolicitud.class.getName()).log(Level.SEVERE, null, ex);
+            }
+
+        }
+    }
 
 }

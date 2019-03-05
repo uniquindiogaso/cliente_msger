@@ -19,6 +19,7 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JOptionPane;
+import logica.Acciones;
 
 public class Connection {
 
@@ -54,9 +55,8 @@ public class Connection {
             String respuesta = "";
             while ((lineaActual = rd.readLine()) != null) {
                 respuesta = lineaActual;
-                System.out.println("respuesta = " + respuesta);
             }
-           
+
             String codigo = respuesta.substring(0, 3); // fix ... enviarle en el 101 el ID
 
             switch (codigo) {
@@ -94,10 +94,10 @@ public class Connection {
         }
         return this.respuestaServidor;
     }
-    
-    public String pedirUsuarios(String path, String data){
+
+    public String pedirUsuarios(String path, String data) {
         String respuesta = "";
-          try {
+        try {
 
             Socket socket = new Socket(HOST, 8000);
             System.out.println("socket = " + socket);
@@ -113,13 +113,25 @@ public class Connection {
 
             BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
             String lineaActual = "";
-            
+
+            boolean ok = false;
+
             while ((lineaActual = rd.readLine()) != null) {
-                respuesta = lineaActual;
+
+                if (ok && lineaActual != null && !lineaActual.isEmpty()) {
+                    respuesta += lineaActual + "\n";
+                }
+
+                if (lineaActual.contains(Acciones._LISTAUSUARIOS)) {
+                    ok = true;
+                }
+
             }
-                       
+
             wr.close();
             rd.close();
+
+            System.out.println("respuesta \n" + respuesta);
         } catch (UnsupportedEncodingException ex) {
             Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
@@ -130,9 +142,42 @@ public class Connection {
         return respuesta;
     }
 
+    public String enviarInfoEndPoint(String path, String data) {
+        String res = "";
+        try {
+            Socket socket = new Socket(HOST, 8000);
+            System.out.println("socket = " + socket);
+
+            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
+            wr.write("POST " + path + " HTTP/1.0\r\n");
+            wr.write("Content-Length: " + data.length() + "\r\n");
+            wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
+            wr.write("\r\n");
+
+            wr.write(data);
+            wr.flush();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String lineaActual = "";
+            String respuesta = "";
+            while ((lineaActual = rd.readLine()) != null) {
+                respuesta = lineaActual;
+
+            }
+
+            res = respuesta.substring(0, 3);
+
+        } catch (IOException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return res;
+    }
+
     public Connection(String conexion) {
 
     }
+
+    
 
     public static Connection getSingletonInstance(String nombre) {
         if (conexion == null) {

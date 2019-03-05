@@ -44,7 +44,7 @@ public class TareasCliente {
     }
 
     public static void solicitudes(HashMap<String, String> p) {
-        System.out.println(p.get("destino") + ") : solicitudes " + p.get("listado"));
+        System.out.println(p.get("destino") + ") : ************************ solicitudes " + p.get("listado"));
     }
 
 }

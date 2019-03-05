@@ -103,13 +103,15 @@ public class Cliente {
                                 TareasCliente.mensaje(p);
                                 break;
                             case Acciones._ARCHIVO:
-                                TareasCliente.archivo(p);
+                                TareasCliente.archivo(p);                                
                                 break;
                             case Acciones._LISTAUSUARIOS:
-                                TareasCliente.listadoAmigos(p);
+                                //TareasCliente.listadoAmigos(p);
+                                ventana.actualiarUIAmigosActivos(p.get("listado"));
                                 break;
                             case Acciones._SOLICITUDES:
-                                TareasCliente.solicitudes(p);
+                                //TareasCliente.solicitudes(p);
+                                ventana.setListadoSolicitudes(p.get("listado"));
                                 break;
                             default:
                                 break;

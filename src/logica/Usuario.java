@@ -23,6 +23,13 @@ public class Usuario {
     public Usuario() {
     }
 
+    public Usuario(int id, String nombres) {
+        this.id = id;
+        this.nombres = nombres;
+    }
+
+    
+    
     public Usuario(int id, String usr, String pass, String nombres, String apellidos, String estado, boolean bloqueado, String email) {
         this.id = id;
         this.usr = usr;
@@ -100,4 +107,11 @@ public class Usuario {
         this.email = email;
     }
 
+    @Override
+    public String toString() {
+        return id  + " : " + nombres;
+    }
+
+    
+    
 }
