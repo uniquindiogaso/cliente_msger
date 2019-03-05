@@ -44,44 +44,6 @@ public class Cliente {
 
             System.out.println("... Definiendo flujos de I/O");
 
-//            Thread sendMessage = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    while (true) {
-//                        // read the message to deliver. 
-//                        String entrada = msj;
-//                        try {
-//                            // write on the output stream 
-//                            salidaDatos.writeUTF(entrada);
-//                            salidaDatos.flush();
-//
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                        }
-//                    }
-//                }
-//            });
-
-//                Thread escuchador = new Thread(new Runnable() {
-//                @Override
-//                public void run() {
-//                    while (true) {
-//                        try {
-//                            System.out.println("cliente escucha ????" + entradaDatos.readLine() );
-//                            if (!clientSocket.isClosed() && entradaDatos.ready()) {
-//                                System.out.println(entradaDatos.readLine() + "\n");
-//                                msj = "";
-//
-//                            }
-//                        } catch (IOException e) {
-//                            e.printStackTrace();
-//                            System.out.println("Comunicación finalizada!!!!");
-//                            // break;
-//                        }
-//                    }
-//                }
-//            });
-//            escuchador.start();
 
         // readMessage thread 
         Thread readMessage = new Thread(new Runnable() {
@@ -110,7 +72,7 @@ public class Cliente {
                                 ventana.actualiarUIAmigosActivos(p.get("listado"));
                                 break;
                             case Acciones._SOLICITUDES:
-                                //TareasCliente.solicitudes(p);
+                                //TareasCliente.solicitudes(p);                               
                                 ventana.setListadoSolicitudes(p.get("listado"));
                                 break;
                             default:
