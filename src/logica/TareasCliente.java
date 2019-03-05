@@ -7,6 +7,7 @@ package logica;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.util.HashMap;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -19,6 +20,7 @@ public class TareasCliente {
 
     public static void mensaje(HashMap<String, String> p) {        
         System.out.println(p.get("origen") + " : " + p.get("msj"));
+       
     }
 
     public static void archivo(HashMap<String, String> p) {

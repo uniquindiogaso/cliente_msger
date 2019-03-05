@@ -41,7 +41,7 @@ public class Cliente {
 
             salidaDatos = new DataOutputStream(clientSocket.getOutputStream());
             entradaDatos = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-
+            System.out.println("entradaDatos = " + entradaDatos);
             System.out.println("... Definiendo flujos de I/O");
 
 
@@ -63,6 +63,8 @@ public class Cliente {
                         switch (accion) {
                             case Acciones._MSJ:
                                 TareasCliente.mensaje(p);
+                                //ventana.txtAreaChat.setText(p.get("msj"));
+                                ventana.showMessage("[" + p.get("origen") + "]" + p.get("msj")+"\n"+ "", ventana, 0, 000);
                                 break;
                             case Acciones._ARCHIVO:
                                 TareasCliente.archivo(p);                                

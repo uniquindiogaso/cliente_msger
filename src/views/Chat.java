@@ -27,7 +27,6 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
-import logica.Archivos;
 import logica.Cliente;
 import logica.Usuario;
 //import logica.Cliente;
@@ -49,6 +48,7 @@ public class Chat extends javax.swing.JFrame {
     private StyleContext context;
     private boolean blockEmotes = false;
     private Usuario u;
+    private int idamigo;
     Cliente clienteSocket;
 
     private String listadoSolicitudes;
@@ -60,15 +60,18 @@ public class Chat extends javax.swing.JFrame {
      * @param u
      */
     public Chat(Login login, Usuario u) {
-    //public Chat() {
+        //public Chat() {
         initComponents();
+        idamigo = 0;
         txtAreaChat.setEditable(false);
-        //DesactivarPaneles(true); 
+        DesactivarPaneles(true); 
         c = new Connection();
         this.login = login;
         this.u = u;
         clienteSocket = new Cliente(u, this);
         setLocationRelativeTo(null);
+         context = new StyleContext();
+         styledDocument = new DefaultStyledDocument(context);
         //jLabel2.setText(login.getUsuario());        
         panelEmoticons = new PanelEmoticons(this);
         panelEmoticons.setSize(700, 200);
@@ -158,6 +161,11 @@ public class Chat extends javax.swing.JFrame {
             public String getElementAt(int i) { return strings[i]; }
         });
         listaUsuariosUI.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
+        listaUsuariosUI.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                listaUsuariosUIMouseClicked(evt);
+            }
+        });
         jScrollPane1.setViewportView(listaUsuariosUI);
 
         javax.swing.GroupLayout PanelMainLayout = new javax.swing.GroupLayout(PanelMain);
@@ -348,18 +356,16 @@ public class Chat extends javax.swing.JFrame {
     }//GEN-LAST:event_bSolicitudesMousePressed
 
     private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
-//        try {
-//            
-         // enviarChat();
-//        
-//        } catch (IOException ex) {
-//            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-        context = new StyleContext();
-        styledDocument = new DefaultStyledDocument(context);
-        showMessage("["+u.getId()+"]"+txtChat.getText(), "", 0, 000);
-        System.out.println("Enviando : " + txtChat.getText());
-        txtChat.setText("");
+        try {
+            
+            enviarChat(txtChat.getText());
+            
+           
+            showMessage("[" + u.getId() + "]" + txtChat.getText()+"\n", "", 0, 000);
+            txtChat.setText("");
+        } catch (IOException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
 
 
     }//GEN-LAST:event_lbEnviarMouseClicked
@@ -378,6 +384,12 @@ public class Chat extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_jLabel3MouseClicked
+
+    private void listaUsuariosUIMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_listaUsuariosUIMouseClicked
+        this.idamigo = Integer.parseInt(listaUsuariosUI.getSelectedValue());
+        System.out.println("amigo = " + idamigo);
+        DesactivarPaneles(false);
+    }//GEN-LAST:event_listaUsuariosUIMouseClicked
 
     /**
      * @param args the command line arguments
@@ -432,7 +444,7 @@ public class Chat extends javax.swing.JFrame {
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbEnviar;
     private javax.swing.JList<String> listaUsuariosUI;
-    private javax.swing.JTextPane txtAreaChat;
+    public javax.swing.JTextPane txtAreaChat;
     public javax.swing.JTextArea txtChat;
     // End of variables declaration//GEN-END:variables
 
@@ -444,13 +456,13 @@ public class Chat extends javax.swing.JFrame {
         update.cargarDatos(usr, pass, estado, bloqueado, c);
     }
 
-    private void enviarChat() throws IOException {
+    private void enviarChat(String mensaje) throws IOException {
         
-        //codificarlo en base64
-        //Archivos.encodeMensaje(aqui lo que se quiere en base64)
-        
+
         //Archivos.
-        clienteSocket.enviar("#MSJ||FQLSHP||1||2||Hola uq!"+"\n");         
+        String estructura = "#MSJ||FQLSHP||" +u.getId()+"||"+idamigo+"||"+mensaje+"\n";
+        System.out.println("estructura = " + estructura);
+        clienteSocket.enviar(estructura);
 
     }
 
@@ -579,20 +591,20 @@ public class Chat extends javax.swing.JFrame {
         clienteSocket.enviar("#DESCONECTAR||FQLSHP||" + u.getId() + "||s3rv1d0r||" + u.getId() + "\n");
         System.exit(0);
     }
-    
-    private void DesactivarPaneles(boolean parametro){
+
+    private void DesactivarPaneles(boolean parametro) {
         if (parametro) {
             txtChat.setEnabled(false);
             PanelEmot.setEnabled(false);
             lbArchivos.setEnabled(false);
             lbEnviar.setEnabled(false);
-        }else{
+        } else {
             txtChat.setEnabled(true);
             PanelEmot.setEnabled(true);
             lbArchivos.setEnabled(true);
             lbEnviar.setEnabled(true);
         }
-        
-   }
+
+    }
 
 }
