@@ -5,17 +5,27 @@
  */
 package views;
 
-
-
+import java.awt.Color;
+import java.awt.Font;
 import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import java.io.IOException;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import logica.Cliente;
-import logica.Usuario;
-
+import javax.swing.Icon;
+import javax.swing.ImageIcon;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
+import javax.swing.text.DefaultStyledDocument;
+import javax.swing.text.SimpleAttributeSet;
+import javax.swing.text.Style;
+import javax.swing.text.StyleConstants;
+import javax.swing.text.StyleContext;
+import javax.swing.text.StyledDocument;
+//import logica.Cliente;
+//import logica.Usuario;
 
 /**
  *
@@ -23,53 +33,50 @@ import logica.Usuario;
  */
 public class Chat extends javax.swing.JFrame {
 
-    Login login ;
+    Login login;
     UserUpdate update = new UserUpdate();
-
-   private static PanelEmoticons panelEmoticons;
-   Document document;
-   
-   
-
-
-    private Usuario u;
-    Cliente clienteSocket;
+    private static PanelEmoticons panelEmoticons;
+    Document document;
+    private String styleFont = "plain";
+    private StyledDocument styledDocument;
+    private StyleContext context;
+    private boolean blockEmotes = false;
+    //private Usuario u;
+    //Cliente clienteSocket;
 
     /**
      * Creates new form Chat
+     *
      * @param login
      */
-    public Chat(Login login , Usuario u) {
+    //public Chat(Login login , Usuario u) {
+    public Chat() {
         initComponents();
-        this.login=login;
-        this.u = u;
-        clienteSocket = new Cliente(u, this);
+        this.login = login;
+        //this.u = u;
+        //clienteSocket = new Cliente(u, this);
         setLocationRelativeTo(null);
-
-        //jLabel2.setText(login.getUsuario());
-        
-        panelEmoticons= new PanelEmoticons(this);
+        //jLabel2.setText(login.getUsuario());        
+        panelEmoticons = new PanelEmoticons(this);
         panelEmoticons.setSize(700, 200);
         PanelEmot.add(panelEmoticons);
-        document=txtChat.getDocument();
-        
-        
+        document = txtChat.getDocument();
 
-        jLabel2.setText(login.getUsuario());
-        
+        //jLabel2.setText(login.getUsuario());
         //"#MSJ||FQLSHP||c0||c2||Hola :)"
-        clienteSocket.enviar("#HOLA||FQLSHP||"+u.getId()+"||s3rv1d0r||"+u.getId() + "\n" );
-
+        //clienteSocket.enviar("#HOLA||FQLSHP||"+u.getId()+"||s3rv1d0r||"+u.getId() + "\n" );
     }
-public void insertString(String string){
-		try {
-			
-			document.insertString(txtChat.getText().length(),string, null);
-		} catch (BadLocationException e) {
-		
-			e.printStackTrace();
-		}
-	}
+
+    public void insertString(String string) {
+        try {
+
+            document.insertString(txtChat.getText().length(), string, null);
+        } catch (BadLocationException e) {
+
+            e.printStackTrace();
+        }
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -92,13 +99,13 @@ public void insertString(String string){
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         PanelChat = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtChat = new javax.swing.JTextArea();
         lbEnviar = new javax.swing.JLabel();
         lbArchivos = new javax.swing.JLabel();
         PanelEmot = new javax.swing.JPanel();
+        jScrollPane4 = new javax.swing.JScrollPane();
+        txtAreaChat = new javax.swing.JTextPane();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocationByPlatform(true);
@@ -226,10 +233,6 @@ public void insertString(String string){
 
         PanelChat.setBackground(new java.awt.Color(36, 47, 65));
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane2.setViewportView(jTextArea1);
-
         txtChat.setColumns(20);
         txtChat.setRows(5);
         jScrollPane3.setViewportView(txtChat);
@@ -254,30 +257,33 @@ public void insertString(String string){
             .addGap(0, 55, Short.MAX_VALUE)
         );
 
+        jScrollPane4.setViewportView(txtAreaChat);
+
         javax.swing.GroupLayout PanelChatLayout = new javax.swing.GroupLayout(PanelChat);
         PanelChat.setLayout(PanelChatLayout);
         PanelChatLayout.setHorizontalGroup(
             PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelChatLayout.createSequentialGroup()
-                .addContainerGap()
                 .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane2)
                     .addGroup(PanelChatLayout.createSequentialGroup()
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addContainerGap()
                         .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(lbArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(lbEnviar))
-                        .addGap(0, 126, Short.MAX_VALUE))
-                    .addComponent(PanelEmot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                            .addGroup(PanelChatLayout.createSequentialGroup()
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 425, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(lbArchivos, javax.swing.GroupLayout.PREFERRED_SIZE, 101, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(lbEnviar))
+                                .addGap(0, 126, Short.MAX_VALUE))
+                            .addComponent(PanelEmot, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                    .addComponent(jScrollPane4))
                 .addContainerGap())
         );
         PanelChatLayout.setVerticalGroup(
             PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(PanelChatLayout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 259, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jScrollPane4, javax.swing.GroupLayout.DEFAULT_SIZE, 265, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(PanelEmot, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addGroup(PanelChatLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -314,25 +320,65 @@ public void insertString(String string){
     }//GEN-LAST:event_lbCerrarMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-     update.setVisible(true);
+        update.setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
     private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
-     ControlSolicitud control = new ControlSolicitud();
-     control.setVisible(true);     
+        ControlSolicitud control = new ControlSolicitud();
+        control.setVisible(true);
     }//GEN-LAST:event_jLabel5MousePressed
 
     private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
-        try {
-            
-            enviarChat();
-        
-        } catch (IOException ex) {
-            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
-        }
+//        try {
+//            
+//            enviarChat();
+//        
+//        } catch (IOException ex) {
+//            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+        context = new StyleContext();
+        styledDocument = new DefaultStyledDocument(context);
+        showMessage(txtChat.getText(), "", 1, 000);
+        System.out.println("Enviando : " + txtChat.getText());
+        txtChat.setText("");
+
+
     }//GEN-LAST:event_lbEnviarMouseClicked
 
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Chat.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
 
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Chat().setVisible(true);
+            }
+        });
+    }
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JPanel PanelChat;
     private static javax.swing.JPanel PanelEmot;
@@ -346,27 +392,93 @@ public void insertString(String string){
     private javax.swing.JList<String> jList1;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    public javax.swing.JTextArea jTextArea1;
+    private javax.swing.JScrollPane jScrollPane4;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JLabel lbArchivos;
     private javax.swing.JLabel lbCerrar;
     private javax.swing.JLabel lbEnviar;
+    private javax.swing.JTextPane txtAreaChat;
     public javax.swing.JTextArea txtChat;
     // End of variables declaration//GEN-END:variables
 
-    void datosUser(String usr, String pass,String estado, String bloqueado,Connection c) {        
-        update.cargarDatos(usr,pass,estado,bloqueado,c);
+    void datosUser(String usr, String pass, String estado, String bloqueado, Connection c) {
+        update.cargarDatos(usr, pass, estado, bloqueado, c);
     }
-
-
 
     private void enviarChat() throws IOException {
-         //new logica.Client().emitir(txtChat.getText().trim());
-         clienteSocket.enviar("#MSJ||FQLSHP||1||2||Hola uq!"+"\n");         
-        
+        //new logica.Client().emitir(txtChat.getText().trim());
+        //clienteSocket.enviar("#MSJ||FQLSHP||1||2||Hola uq!"+"\n");         
+
     }
 
+    /*
+    Metodos para Cargar Emoticons
+    +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+     */
+    public String getStyleFont() {
+        return styleFont;
+    }
 
+    public void insertEmoticon(ImageIcon ic, String atajo) {
+        Style labelStyle = context.getStyle(StyleContext.DEFAULT_STYLE);
+        Icon icon = ic;
+        JLabel label = new JLabel(icon);
+        StyleConstants.setComponent(labelStyle, label);       
+        try {
+            styledDocument.insertString(styledDocument.getLength(), atajo, labelStyle);
+            txtAreaChat.setStyledDocument(styledDocument);
+        } catch (BadLocationException badLocationException) {
+            System.err.println("Oops");
+        }
+    }
+
+    public void showMessage(String text, Object styleConstants, int b, int color) {
+
+//        final String newline = "\n";
+//        final StringTokenizer tokenizer = new StringTokenizer(text, ":");
+//        final String username = tokenizer.nextToken();
+//        final String message = tokenizer.nextToken();
+        LexicoAnalyzer anLex = new LexicoAnalyzer(text);
+        SimpleAttributeSet attributes = new SimpleAttributeSet();
+        SimpleAttributeSet attributesU = new SimpleAttributeSet();
+        SimpleAttributeSet attributeSetB = new SimpleAttributeSet();
+        StyleConstants.setFontFamily(attributesU, "Tahoma");
+        StyleConstants.setFontFamily(attributes, styleConstants.toString());
+        attributes.addAttribute(StyleConstants.CharacterConstants.Foreground, new Color(color));
+        if (b == 1) {
+            attributeSetB = new SimpleAttributeSet();
+            attributes.addAttribute(StyleConstants.CharacterConstants.Bold, Boolean.TRUE);
+            txtAreaChat.setFont(new Font(getStyleFont(), 1, 14));
+        }
+        if (b == 0) {
+            attributeSetB = new SimpleAttributeSet();
+            attributeSetB.addAttribute("Plain", Boolean.TRUE);
+            txtAreaChat.setFont(new Font(getStyleFont(), 0, 14));
+        }
+        try {
+            styledDocument.insertString(styledDocument.getLength(), "" + "", attributesU);
+            String token;
+            String ruta;
+            ImageIcon img;
+            while (anLex.hasToken()) {
+                token = anLex.nextToken();
+                if (Emoticons.esEmoticon(token)) {
+                    ruta = Emoticons.emoticonos.get(token);
+                    img = new ImageIcon(getClass().getResource(ruta));
+                    insertEmoticon(img, token);
+                } else {
+                    styledDocument.insertString(styledDocument.getLength(), token, attributes);
+                }
+            }
+            styledDocument.insertString(styledDocument.getLength(), "" + "", attributeSetB);
+        } catch (BadLocationException ble) {
+            System.err.println("Couldn't insert" + "text.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            JOptionPane.showMessageDialog(this, "OK", "::", JOptionPane.INFORMATION_MESSAGE);
+        }
+    }
+    //+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++//
+    
 }
