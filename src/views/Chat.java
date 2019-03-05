@@ -59,7 +59,7 @@ public class Chat extends javax.swing.JFrame {
      * @param u
      */
     public Chat(Login login, Usuario u) {
-
+    //public Chat() {
         initComponents();
         c = new Connection();
         this.login = login;

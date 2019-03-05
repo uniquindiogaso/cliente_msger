@@ -80,6 +80,6 @@ class listerner implements ActionListener{
 		
 		JButton button = (JButton)e.getSource();
 		
-		PanelEmoticons.chat.insertString(button.getToolTipText());	
+		PanelEmoticons.chat.insertString(" "+button.getToolTipText()+" ");	
 	   }
 	}
