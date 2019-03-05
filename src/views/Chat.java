@@ -11,6 +11,10 @@ import javax.swing.text.BadLocationException;
 import javax.swing.text.Document;
 
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.Icon;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
@@ -31,7 +35,7 @@ import logica.Usuario;
  * @author German
  */
 public class Chat extends javax.swing.JFrame {
-
+    Connection c;
     Login login;
     UserUpdate update = new UserUpdate();
     private static PanelEmoticons panelEmoticons;
@@ -47,10 +51,12 @@ public class Chat extends javax.swing.JFrame {
      * Creates new form Chat
      *
      * @param login
+     * @param u
      */
     public Chat(Login login, Usuario u) {
-
+        
         initComponents();
+        c= new Connection();
         this.login = login;
         this.u = u;
         clienteSocket = new Cliente(u, this);
@@ -131,6 +137,11 @@ public class Chat extends javax.swing.JFrame {
         jLabel3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura3.JPG"))); // NOI18N
         jLabel3.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
+        jLabel3.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel3MouseClicked(evt);
+            }
+        });
 
         jList1.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true));
         jList1.setModel(new javax.swing.AbstractListModel<String>() {
@@ -340,6 +351,16 @@ public class Chat extends javax.swing.JFrame {
 
 
     }//GEN-LAST:event_lbEnviarMouseClicked
+
+    private void jLabel3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel3MouseClicked
+        try {
+            String peticion=c.pedirUsuarios("/obtenerusuarios", URLEncoder.encode("usuario_id", "UTF-8") + "=" + URLEncoder.encode(String.valueOf(u.getId()),"UTF-8"));
+            System.out.println("peticion = " + peticion);
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jLabel3MouseClicked
 
     /**
      * @param args the command line arguments

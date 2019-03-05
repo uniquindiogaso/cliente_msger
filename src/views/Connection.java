@@ -54,6 +54,7 @@ public class Connection {
             String respuesta = "";
             while ((lineaActual = rd.readLine()) != null) {
                 respuesta = lineaActual;
+                System.out.println("respuesta = " + respuesta);
             }
            
             String codigo = respuesta.substring(0, 3); // fix ... enviarle en el 101 el ID
@@ -92,6 +93,41 @@ public class Connection {
             System.exit(0);
         }
         return this.respuestaServidor;
+    }
+    
+    public String pedirUsuarios(String path, String data){
+        String respuesta = "";
+          try {
+
+            Socket socket = new Socket(HOST, 8000);
+            System.out.println("socket = " + socket);
+
+            BufferedWriter wr = new BufferedWriter(new OutputStreamWriter(socket.getOutputStream(), "UTF8"));
+            wr.write("POST " + path + " HTTP/1.0\r\n");
+            wr.write("Content-Length: " + data.length() + "\r\n");
+            wr.write("Content-Type: application/x-www-form-urlencoded\r\n");
+            wr.write("\r\n");
+
+            wr.write(data);
+            wr.flush();
+
+            BufferedReader rd = new BufferedReader(new InputStreamReader(socket.getInputStream()));
+            String lineaActual = "";
+            
+            while ((lineaActual = rd.readLine()) != null) {
+                respuesta = lineaActual;
+            }
+                       
+            wr.close();
+            rd.close();
+        } catch (UnsupportedEncodingException ex) {
+            Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            //Logger.getLogger(Connection.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null, "No logramos conectarte con un servidor, inténtalo más tarde.", "Oops! algo va mal", JOptionPane.INFORMATION_MESSAGE);
+            System.exit(0);
+        }
+        return respuesta;
     }
 
     public Connection(String conexion) {
