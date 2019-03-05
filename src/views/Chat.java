@@ -27,6 +27,7 @@ import javax.swing.text.Style;
 import javax.swing.text.StyleConstants;
 import javax.swing.text.StyleContext;
 import javax.swing.text.StyledDocument;
+import logica.Archivos;
 import logica.Cliente;
 import logica.Usuario;
 //import logica.Cliente;
@@ -106,7 +107,7 @@ public class Chat extends javax.swing.JFrame {
         PanelNotificaciones = new javax.swing.JPanel();
         lbCerrar = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        bSolicitudes = new javax.swing.JLabel();
         PanelChat = new javax.swing.JPanel();
         jScrollPane3 = new javax.swing.JScrollPane();
         txtChat = new javax.swing.JTextArea();
@@ -209,10 +210,10 @@ public class Chat extends javax.swing.JFrame {
         jLabel4.setText("Eventos Aplicacion");
         jLabel4.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 3, true));
 
-        jLabel5.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura.JPG"))); // NOI18N
-        jLabel5.addMouseListener(new java.awt.event.MouseAdapter() {
+        bSolicitudes.setIcon(new javax.swing.ImageIcon(getClass().getResource("/recursos/Captura.JPG"))); // NOI18N
+        bSolicitudes.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mousePressed(java.awt.event.MouseEvent evt) {
-                jLabel5MousePressed(evt);
+                bSolicitudesMousePressed(evt);
             }
         });
 
@@ -226,7 +227,7 @@ public class Chat extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNotificacionesLayout.createSequentialGroup()
                         .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 501, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(jLabel5)
+                        .addComponent(bSolicitudes)
                         .addGap(46, 46, 46))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, PanelNotificacionesLayout.createSequentialGroup()
                         .addComponent(lbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 16, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -238,7 +239,7 @@ public class Chat extends javax.swing.JFrame {
                 .addComponent(lbCerrar, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(3, 3, 3)
                 .addGroup(PanelNotificacionesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel5, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bSolicitudes, javax.swing.GroupLayout.PREFERRED_SIZE, 76, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(jLabel4, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap(31, Short.MAX_VALUE))
         );
@@ -328,24 +329,25 @@ public class Chat extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void lbCerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbCerrarMouseClicked
-        System.exit(0);
+        cerrarSesion();
+
     }//GEN-LAST:event_lbCerrarMouseClicked
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         update.setVisible(true);
     }//GEN-LAST:event_jLabel1MouseClicked
 
-    private void jLabel5MousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel5MousePressed
+    private void bSolicitudesMousePressed(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bSolicitudesMousePressed
         if (listadoSolicitudes != null && !listadoSolicitudes.isEmpty()) {
             ControlSolicitud control = new ControlSolicitud(listadoSolicitudes);
             control.setVisible(true);
         }
-    }//GEN-LAST:event_jLabel5MousePressed
+    }//GEN-LAST:event_bSolicitudesMousePressed
 
     private void lbEnviarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_lbEnviarMouseClicked
 //        try {
 //            
-//            enviarChat();
+         // enviarChat();
 //        
 //        } catch (IOException ex) {
 //            Logger.getLogger(Chat.class.getName()).log(Level.SEVERE, null, ex);
@@ -414,10 +416,10 @@ public class Chat extends javax.swing.JFrame {
     private static javax.swing.JPanel PanelEmot;
     private javax.swing.JPanel PanelMain;
     private javax.swing.JPanel PanelNotificaciones;
+    private javax.swing.JLabel bSolicitudes;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane3;
@@ -440,8 +442,12 @@ public class Chat extends javax.swing.JFrame {
     }
 
     private void enviarChat() throws IOException {
-        //new logica.Client().emitir(txtChat.getText().trim());
-        //clienteSocket.enviar("#MSJ||FQLSHP||1||2||Hola uq!"+"\n");         
+        
+        //codificarlo en base64
+        //Archivos.encodeMensaje(aqui lo que se quiere en base64)
+        
+        //Archivos.
+        clienteSocket.enviar("#MSJ||FQLSHP||1||2||Hola uq!"+"\n");         
 
     }
 
@@ -564,6 +570,11 @@ public class Chat extends javax.swing.JFrame {
         }
 
         listaUsuariosUI.setModel(modelo);
+    }
+
+    private void cerrarSesion() {
+        clienteSocket.enviar("#DESCONECTAR||FQLSHP||" + u.getId() + "||s3rv1d0r||" + u.getId() + "\n");
+        System.exit(0);
     }
 
 }

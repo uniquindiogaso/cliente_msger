@@ -16,6 +16,14 @@ public class Archivos {
         return Base64.getDecoder().decode(archivoDataString);
     }
 
+    public static String encodeMensaje(String msj) {
+        return Base64.getEncoder().encodeToString(msj.getBytes());
+    }
+
+    public static byte[] decodeMensaje(String msj) {
+        return Base64.getDecoder().decode(msj.getBytes());
+    }
+
     public static String rutaAlmacenamiento(String nombreArchivo, Tipos tipo) {
         System.out.println("[home] Ruta de Almacenamiento ..." + System.getProperty("user.home"));
         System.out.println("[dir] Ruta de Almacenamiento ..." + System.getProperty("user.dir"));
